@@ -1,11 +1,12 @@
 # Milestone 3: Low-fi prototype
 > Team Name: Random
+
 > Member: Yujin Chung, Sangho Kim, Jaeryoung Ka
 
 ### 1. Problem statement
 CS students are interested in getting information on coursework, but our research has found that they have a hard time in both asking about it, and constructing a suitable one based on the collected information. Our survey have also qualitatively shown that there is little chance of diverse interactions to recommending coursework due to the limitation of homogeneity of group to which people usually ask.
 
-### 2. Tasks
+### 2. Core Tasks
 > **Search**: users can look up similar cases to their own using a search bar and get meaningful information in a much shorter time.
 
 > **Upload a Question**: People can ask a question, seeking for the customized coursework table of their own.
