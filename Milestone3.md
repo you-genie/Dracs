@@ -40,14 +40,19 @@ From our survey, many CS students want to get information on personal coursework
 
 > Images
 
+Question page
 ![](https://github.com/krista2811/CS473/blob/master/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202019-11-07%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.32.58.png)
 
+Filtering page for search
 ![](https://github.com/krista2811/CS473/blob/master/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202019-11-07%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.33.17.png)
 
+Question posting page
 ![](https://github.com/krista2811/CS473/blob/master/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202019-11-07%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.33.31.png)
 
+Upvote / downvote for certain course
 ![](https://github.com/krista2811/CS473/blob/master/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202019-11-07%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.33.42.png)
 
+Pseudo drag / drop function for certain course
 ![](https://github.com/krista2811/CS473/blob/master/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202019-11-07%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.33.51.png)
 
 ### 4. Observations
