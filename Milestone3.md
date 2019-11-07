@@ -39,7 +39,7 @@ From our survey, many CS students want to get information on personal coursework
 * We used hard-coded data instead of the user’s own data. It is because most prototype tools do not support actions as text-writing, only changing Html pages are available. 
 
 > Images
-
+!(https://github.com/krista2811/CS473/blob/master/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202019-11-07%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.32.48.png)
 
 ### 4. Observations
 > We interviewed four participants. We will refer them as P1(17’), P2(16’), P3(16’), P4(18’). The number in () means an entrance year. We interviewed students ranging from newcomers(18’) to senior(16’) to try to get feedback from both relatively questioner-close participants and respondent-close participants.
