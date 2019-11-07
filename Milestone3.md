@@ -38,6 +38,9 @@ From our survey, many CS students want to get information on personal coursework
 * Drags. We initially pondered much whether we should support dragging in the low-fi prototype. Since Invision didn’t support dragging, we chose to give a similar experience to it and not to fully implement drags itself. 
 * We used hard-coded data instead of the user’s own data. It is because most prototype tools do not support actions as text-writing, only changing Html pages are available. 
 
+> Images
+
+
 ### 4. Observations
 > We interviewed four participants. We will refer them as P1(17’), P2(16’), P3(16’), P4(18’). The number in () means an entrance year. We interviewed students ranging from newcomers(18’) to senior(16’) to try to get feedback from both relatively questioner-close participants and respondent-close participants.
 
