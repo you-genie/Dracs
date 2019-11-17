@@ -1,8 +1,9 @@
 <template>
     <v-tooltip bottom>
         <template v-slot:activator="{ on }">
-            <v-chip draggable
+            <v-chip draggable light
                 class="ma-2"
+                :color="nonselect"
                 @dragstart="drag"
                 @drag.prevent="drag"
                 @dragend="end"
@@ -18,6 +19,9 @@
 <script>
     export default {
         name: "DragChip",
+        data: () => ({
+            nonselect: "white"
+        }),
         props: {
             code: String,
             enName: String,

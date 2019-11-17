@@ -1,6 +1,6 @@
 <template>
     <v-card
-        max-width="45%"
+        max-width="30%"
         class="auto"
         width="70%"
         height="500"
@@ -23,22 +23,32 @@
             v-on:drop="drop">
             <v-card-text><span>On Vote</span></v-card-text>
             <v-container>
-                <v-div class="mx-1" v-for="(item, index) in items" v-bind:key="index">
-                    <v-chip >
-                        {{item.code}}
-                    </v-chip>
-                </v-div> 
+                <select-chip 
+                    v-for="(course, index) in items" v-bind:key="index"
+                    v-on:deselect="deselect"
+                    v-on:vote="vote"
+                    :code="course.code"
+                    :en-name="course.enName"
+                    :ko-name="course.koName"
+                    :my-chip="course.my_item"
+                    :votes="course.votes"
+                    :courseId="index" />
+            </v-container>
+            <v-container>
             </v-container>
         </v-card>
     </v-card>
 </template>
 <script>
     export default {
-        name: "DragBoard",
+        name: "SemesterBoard",
         props: {
             semester: String,
             items: Array,
             semesterId: Number
+        },
+        components: {
+            SelectChip: () => import('@/components/chips/SelectChip')
         },
         data: () => ({
             text: "temp",
@@ -58,6 +68,12 @@
                 event.preventDefault();
                 this.$emit('drag-dropped-semester', this.semesterId)
                 this.cardColor = "undefined"
+            },
+            deselect: function(courseId) {
+                this.$emit('deselect-course', this.semesterId, courseId)
+            },
+            vote: function(courseId, voteState) {
+                this.$emit('vote', this.semesterId, courseId, voteState)
             }
         }
     }
