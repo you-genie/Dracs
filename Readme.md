@@ -1,3 +1,9 @@
+## Run / install
+- install  
+npm install
+- run  
+npm run serve
+
 Database Structure
 
 
