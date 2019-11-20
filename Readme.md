@@ -27,7 +27,14 @@ npm run serve
 - comments (array)
    - (string) userID,  comment
 
-
+### votes
+ - questionID (int)
+ - upvoteHistory (array)
+    - (string) courseID, year, semester, userID, userID, ...
+ - downvoteHistory (array)
+    - (string) courseID, year, semester, userID, userID, ...
+    
+    
 Login 
 
 * UserLoginID (유저 로그인 아이디, ex. tkdgh97531@gmail.com)
