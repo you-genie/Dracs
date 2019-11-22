@@ -62,7 +62,7 @@
             allowDrop: function(event) {
                 event.preventDefault();
                 this.$emit('drag-allow-semester', this.semesterId)
-                this.cardColor = "grey darken-2"
+                this.cardColor = "grey lighten-3"
             },
             drop: function() {
                 event.preventDefault();

@@ -20,7 +20,7 @@
     export default {
         name: "DragChip",
         data: () => ({
-            nonselect: "white"
+            nonselect: "orange"
         }),
         props: {
             code: String,

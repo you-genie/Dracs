@@ -1,8 +1,6 @@
 <template>
     <div id="Search"> 
-<!--     <banner />
-    <search-card />
-    <answer-board /> -->
+      <search-bar />
     </div>
 </template>
 
@@ -12,6 +10,7 @@
     export default {
         name: 'Search',
         components: {
+          SearchBar: () => import('@/components/SearchBar')
         }
     }
 </script>
