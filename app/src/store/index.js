@@ -5,6 +5,7 @@ import { db } from '../main'
 Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
+        myReputationPts: 540,
         fitArticleList: [],
     },
 
@@ -15,9 +16,17 @@ export default new Vuex.Store({
                 temp.push(payload[i][0])
             }
             state.fitArticleList = temp
+        },
+        increaseReputationPts(state, payload) {
+            state.myReputationPts += payload
         }
     },
+
     actions: {
+
+        gainReputationPts(context, payload) {
+            context.commit('increaseReputationPts', payload)
+        },
 
         getSearchData(context, payload) {
             let currentSemester = payload[0]
