@@ -1,3 +1,15 @@
+# CS473 DP : Team Random
+
+## Description for DP4 evaluation
+> Main javascript file (main.js) is saved in app/src/ directory.
+
+> Feature implemenation is saved in app/src/components and app/src/components/core directory. Implementation on chips are saved in app/src/components/chips directory.
+
+> if you want to reproduce our server, please follow the instructions saved in readme.md of /app directory.
+
+> Contents below are here for our convinience, not for the grading of DP4. However, if you are intertesed, you can look at it.
+
+
 ## Run / install
 - install  
 npm install
