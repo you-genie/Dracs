@@ -5,7 +5,7 @@ import { db } from '../main'
 Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
-        myReputationPts: 540,
+        myReputationPts: 420,
         fitArticleList: [],
     },
 

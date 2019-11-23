@@ -330,7 +330,7 @@ export default {
                         .get()
                         .then(snapshot => {
                           snapshot.forEach(doc => {
-                            let newReputationPts = doc.data().reputationPts + 1;
+                            let newReputationPts = doc.data().reputationPts + 4;
                             doc.ref.update({ reputationPts: newReputationPts });
                           });
                         });
