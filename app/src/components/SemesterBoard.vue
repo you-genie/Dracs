@@ -70,8 +70,8 @@
             deselect: function(courseId) {
                 this.$emit('deselect-course', this.semesterId, courseId)
             },
-            vote: function(courseId, voteState) {
-                this.$emit('vote', this.semesterId, courseId, voteState)
+            vote: function(courseId, voteState, prevVote) {
+                this.$emit('vote', this.semesterId, courseId, voteState, prevVote)
             }
         }
     }

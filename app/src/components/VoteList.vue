@@ -1,46 +1,31 @@
 <template>
     <v-list >
-        <v-list-item disabled ripple=false two-line
-            @click="menu=false">
+        <v-list-item disabled ripple=false>
             <v-list-item-content>
-                <v-list-tile-title><small>{{enName}}</small></v-list-tile-title>
-                <v-list-tile-sub-title><small>{{koName}}</small></v-list-tile-sub-title>
+                <v-list-item-title><small>{{enName}}</small></v-list-item-title>
+                <v-list-item-subtitle><small>{{koName}}</small></v-list-item-subtitle>
             </v-list-item-content>
         </v-list-item>
         <v-divider/>
-        <v-list-item
-            :light="up_selected"
-            @click="upvote">
-            <v-list-item-content>
-                <v-list-item-subtitle><small>Upvote</small></v-list-item-subtitle>
-            </v-list-item-content>
-            <v-list-item-action>
-                <v-icon v-if="!up_selected" size=20>mdi-thumb-up-outline</v-icon>
-                <v-icon v-if="up_selected" size=20>mdi-thumb-up</v-icon>
-            </v-list-item-action>
-        </v-list-item>
-        <v-list-item
-            :light="down_selected"
-            @click="downvote">
-            <v-list-item-content>
-                <v-list-item-subtitle><small>Downvote</small></v-list-item-subtitle>
-            </v-list-item-content>
-            <v-list-item-action>
-                <v-icon v-if="!down_selected" size=20>mdi-thumb-down-outline</v-icon>
-                <v-icon v-if="down_selected" size=20>mdi-thumb-down</v-icon>
-            </v-list-item-action>
-        </v-list-item>
-        <v-list-item
-            :light="hmm_selected"
-            @click="hmm">
-            <v-list-item-content>
-                <v-list-item-subtitle><small>Hmm?</small></v-list-item-subtitle>
-            </v-list-item-content>
-            <v-list-item-action>
-              <v-avatar size=20>
-                  <img src="@/assets/hmm.png">
-              </v-avatar>
-            </v-list-item-action>
+        <v-list-item>
+            <v-btn-toggle
+                v-model="vote"
+                dense
+                group
+                @change="sendVote"
+            >
+              <v-btn value="up">
+                <v-icon size=20>mdi-thumb-up</v-icon><span>{{defaultUp}}</span>
+              </v-btn>
+              <v-btn value="down">
+                <v-icon size=20>mdi-thumb-down</v-icon> {{defaultDown}}
+              </v-btn>
+              <v-btn value="hmm">
+                <v-avatar size=20>
+                  <img src="@/assets/hmm.png"> 
+                </v-avatar> Not sure {{defaultHmm}}
+              </v-btn>
+            </v-btn-toggle>
         </v-list-item>
     </v-list>
 </template>
@@ -49,58 +34,23 @@
     export default {
         name: "VoteList",
         data: () => ({
+            vote: undefined,
+            prev: undefined,
+            up: this.defaultUp,
+            down: this.defaultDown,
+            hmm: this.defaultHmm
         }),
         props: {
             enName: String,
             koName: String,
-            up_selected: Boolean,
-            down_selected: Boolean,
-            hmm_selected: Boolean
+            defaultUp: Number,
+            defaultDown: Number,
+            defaultHmm: Number
         },
         methods: {
-            upvote: function() {
-                if (!this.up_selected) {
-                    this.sendUp()
-                    if (this.down_selected) {
-                        this.sendUp()
-                        this.down_selected = false
-                    }
-                    this.up_selected = true
-                } else {
-                    this.sendDown()
-                    this.up_selected = false
-                }
-            },
-            downvote: function() {
-                if (!this.down_selected) {
-                    this.sendDown()
-                    if (this.up_selected) {
-                        this.sendDown()
-                        this.up_selected = false
-                    }
-                    this.down_selected = true
-                } else {
-                    this.sendUp()
-                    this.down_selected = false
-                }
-            },
-            hmm: function() {
-                if (!this.hmm_selected) {
-                    this.$emit('hmm')
-                    this.hmm_selected = true
-                    this.up_selected = false
-                    this.down_selected = false
-                } else {
-                    this.hmm_selected = false
-                    this.up_selected = false
-                    this.down_selected = false
-                }
-            },
-            sendUp: function() {
-                this.$emit('upvote')
-            },
-            sendDown: function() {
-                this.$emit('downvote')
+            sendVote: function() {
+                this.$emit('send-vote', this.vote, this.prev)
+                this.prev = this.vote
             }
         }
     }
