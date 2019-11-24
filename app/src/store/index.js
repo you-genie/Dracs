@@ -162,17 +162,21 @@ export default new Vuex.Store({
     },
     updateReputationPts(state, payload) {
       state.myReputationPts = payload
+    },
+    dbDataLoad(state, payload = null) {
+      state.questions = payload;
+    },
+    updateQuestion(state, payload) {
+      state.questions[payload[0]].courses = payload[1];
+      state.questions[payload[0]].semesters = payload[2];
     }
   },
   actions: {
-    getQuestions: () => {
-      db.collection('questions').onSnapshot((data) => {
-        data.forEach(doc => {
-          console.log(doc.data());
-        })
-      }, (errorObject) => {
-        console.log(errorObject);
-      });
+    updateTest ( context ,payload) {
+      context.commit('updateQuestion', payload)
+    },
+    dbRead (context, payload) {
+      context.commit('dbDataLoad', payload);
     },
     goToAnswer (state, payload) {
       router.push({name: 'answer', params: {questionId: payload.questionId}});

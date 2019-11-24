@@ -20,7 +20,7 @@
                     :index="course"
                     :courseId="index"
                     v-on:drag-on="getDrag"
-                    v-on:drag-end="addSemesterChip"/>
+                    v-on:drag-end="leaveSemesterDrag"/>
             </v-row>
 
     </v-col>
@@ -49,8 +49,8 @@
                 return this.$store.state.questions[this.questionId].semesters
             },
             courses() {
-                return this.$store.state.questions[this.questionId].courses               
-            } 
+                return this.$store.state.questions[this.questionId].courses
+            }
         },
         data: () => ({
             nullInfo: {
@@ -99,7 +99,8 @@
                     this.currentId = -1
                     this.currentSemesterId = -1
                 }
-                this.onDrag = false
+                this.onDrag = false;
+                store.dispatch('updateTest',[this.questionId, this.courses, this.semesters]);
             },
             deselectChip: function(semesterId, courseId) {
                 this.semesters[semesterId].courses[courseId].votes.up -= 1
@@ -111,6 +112,7 @@
                 }
                 
                 this.courses.push(targetCourse.index)
+              store.dispatch('updateTest',[this.questionId, this.courses, this.semesters]);
             },
             vote: function(semesterId, courseId, voteState, prevVote) {
               if (voteState === 'down') {
@@ -128,6 +130,7 @@
               } else if (prevVote === 'hmm') {
                 this.semesters[semesterId].courses[courseId].votes.hmm -= 1
               }
+              store.dispatch('updateTest',[this.questionId, this.courses, this.semesters]);
             },
     reputationUpdate: function(questionID, code, year, isSpring) {
       db.collection("votes")

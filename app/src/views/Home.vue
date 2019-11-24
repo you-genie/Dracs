@@ -32,20 +32,6 @@
         ...mapState(['users', 'user']),
       },
       data: () => ({
-        questions: [
-          {
-            title: "I don't know",
-            body: "Can somebody help me with this question?"
-          },
-          {
-            title: "I want to do internship",
-            body: "Can somebody help me with this question?"
-          },
-          {
-            title: "How to study AI",
-            body: "Can somebody help me with this question?"
-          },
-        ],
         my_questions: [
           {
             title: "Further CS",
