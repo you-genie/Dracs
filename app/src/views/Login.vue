@@ -11,6 +11,7 @@
 <script>
 import firebase from 'firebase';
 import { mapState } from "vuex";
+import { db } from "../main";
 import store from '../store'
 
 export default {
@@ -30,6 +31,15 @@ export default {
                 (user) => {
                     (user)
                     store.commit('changeLoginState', true)
+                    db.collection("users")
+                        .where("userID", "==", firebase.auth().currentUser.uid)
+                        .get()
+                        .then(snapshot => {
+                          snapshot.forEach(doc => {
+                            store.commit('updateReputationPts', doc.data().reputationPts);
+                          });
+                        });
+        
                     this.$router.replace('/')
                 },
                 (error) => {

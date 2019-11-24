@@ -6,7 +6,9 @@
       <v-spacer></v-spacer>
 
       <v-toolbar-items>
-        <v-btn text>({{this.isLoggedIn ? ("You have " + this.myReputationPts + " Rep points") : "Log in to get Rep points"}})</v-btn>
+        <v-btn
+          text
+        >({{this.isLoggedIn ? ("You have " + this.myReputationPts + " Rep points") : "Log in to get Rep points"}})</v-btn>
       </v-toolbar-items>
     </v-toolbar>
 
@@ -23,13 +25,30 @@
 <script>
 import { mapState } from "vuex";
 import firebase from "firebase";
-import store from '../../store'
+import { db } from "../../main";
+import store from "../../store";
+
+/* eslint-disable no-console */
+
+setTimeout(() => {
+  if (firebase.auth().currentUser == null) {
+    store.commit("changeLoginState", false);
+  } else {
+    store.commit("changeLoginState", true);
+    db.collection("users")
+      .where("userID", "==", firebase.auth().currentUser.uid)
+      .get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          store.commit("updateReputationPts", doc.data().reputationPts);
+        });
+      });
+  }
+}, 1000);
 
 export default {
   data() {
-    return {
-
-    };
+    return {};
   },
   computed: {
     ...mapState(["myReputationPts", "isLoggedIn"])
@@ -37,6 +56,7 @@ export default {
   watch: {},
   methods: {
     logInAndOut: function() {
+      console.log("button pressed", firebase.auth().currentUser);
       if (firebase.auth().currentUser == null) {
         // move to login page
         this.$router.replace("login");
@@ -46,7 +66,7 @@ export default {
           .auth()
           .signOut()
           .then(() => {
-            store.commit('changeLoginState', false)
+            store.commit("changeLoginState", false);
           });
       }
     }

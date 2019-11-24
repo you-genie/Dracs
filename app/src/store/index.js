@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { db } from '../main'
+import firebase from 'firebase';
 
 Vue.use(Vuex)
 export default new Vuex.Store({
@@ -20,9 +21,27 @@ export default new Vuex.Store({
         },
         increaseReputationPts(state, payload) {
             state.myReputationPts += payload
+
+            if (firebase.auth().currentUser != null) {
+                db.collection("users")
+                    .where("userID", "==", firebase.auth().currentUser.uid)
+                    .get()
+                    .then(snapshot => {
+                        snapshot.forEach(doc => {
+                            let newReputationPts = doc.data().reputationPts + payload;
+                            doc.ref.update({ reputationPts: newReputationPts });
+                        });
+                    });
+            }
+
+
+
         },
         changeLoginState(state, payload) {
             state.isLoggedIn = payload
+        },
+        updateReputationPts(state, payload) {
+            state.myReputationPts = payload
         }
     },
 
@@ -30,6 +49,7 @@ export default new Vuex.Store({
 
         gainReputationPts(context, payload) {
             context.commit('increaseReputationPts', payload)
+
         },
 
         getSearchData(context, payload) {
