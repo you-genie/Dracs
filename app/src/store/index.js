@@ -5,8 +5,9 @@ import { db } from '../main'
 Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
-        myReputationPts: 420,
+        myReputationPts: 0,
         fitArticleList: [],
+        isLoggedIn: false,
     },
 
     mutations: {
@@ -19,6 +20,9 @@ export default new Vuex.Store({
         },
         increaseReputationPts(state, payload) {
             state.myReputationPts += payload
+        },
+        changeLoginState(state, payload) {
+            state.isLoggedIn = payload
         }
     },
 
