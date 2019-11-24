@@ -9,9 +9,10 @@
         <template v-slot:activator="vote">
             <v-chip light
                 small
+                :disabled="selectChip"
                 v-on="vote.on"
                 class="ma-2"
-                :color="votes.up - votes.down >= 0?good_color:bad_color"
+                :color="selectChip? select_color: votes.up - votes.down >= 0?good_color:bad_color"
             >
                 {{courseData.code}}
                 <v-avatar right small size=10 color="white">{{votes.up - votes.down}}</v-avatar>
@@ -50,7 +51,8 @@
         data: () => ({
             good_color: "green lighten-1",
             bad_color: "red lighten-1",
-            hmm_color: "yellow lighten-1"
+            hmm_color: "yellow lighten-1",
+            select_color: "grey"
         }),
         computed: {
             ...mapState(['courses']),
@@ -65,7 +67,8 @@
             courseId: Number,
             votes: Object,
             myChip: Boolean,
-            index: Number
+            index: Number,
+            selectChip: Boolean
         },
         methods: {
             undo: function() {

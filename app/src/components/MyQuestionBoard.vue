@@ -5,6 +5,7 @@
       v-for="(question, key) in my_questions"
       v-bind:key="key"
       :title="question.title"
+      :questionId="key"
       :body="question.body" />
   </v-container>
 </template>

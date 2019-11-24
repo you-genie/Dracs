@@ -18,7 +18,7 @@
     } from 'vuex'
 
     export default {
-        name: "DragBoard",
+        name: "SelectBoard",
         components: {
             SemesterBoard: () => import('@/components/MySemesterBoard')
         },
@@ -29,10 +29,7 @@
         computed: {
             ...mapState({user: 'user', courseInfos: 'courses'}),
             semesters () {
-                return this.$store.state.questions[this.questionId].semesters
-            },
-            courses() {
-                return this.$store.state.questions[this.questionId].courses               
+                return this.$store.state.my_questions[this.questionId].semesters
             } 
         },
         data: () => ({
@@ -47,15 +44,10 @@
         }),
         methods: {
             deselectChip: function(semesterId, courseId) {
-                this.semesters[semesterId].courses[courseId].votes.up -= 1
-                const targetCourse = this.semesters[semesterId].courses[courseId]
-                if (targetCourse.votes.up > 0 || targetCourse.votes.down > 0 || targetCourse.votes.hmm > 0 ) {
-                    this.semesters[semesterId].courses[courseId].myChip = false
-                } else {
-                    this.semesters[semesterId].courses.splice(courseId, 1)
-                }
-                
-                this.courses.push(targetCourse.index)
+                this.semesters[semesterId].courses[courseId].selected = false
+            },
+            selectChip: function(semesterId, courseId) {
+                this.semesters[semesterId].courses[courseId].selected = true
             },
             vote: function(semesterId, courseId, voteState, prevVote) {
                 if (voteState === 'down') {

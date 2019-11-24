@@ -11,7 +11,7 @@
                 small
                 v-on="vote.on"
                 class="ma-2"
-                :color="votes.up - votes.down >= 0?good_color:bad_color"
+                :color="selectChip? select_color: votes.up - votes.down >= 0?good_color:bad_color"
             >
                 {{courseData.code}}
                 <v-avatar right small color="white">{{votes.up - votes.down}}</v-avatar>
@@ -19,19 +19,19 @@
         </template>
         <v-card
             max-width="300">
-            <vote-list v-if="!myChip"
-                v-on:send-vote="sendVote"
-                v-on:reset="reset"
-                :default-up="votes.up"
-                :default-down="votes.down"
-                :default-hmm="votes.hmm"
-                :en-name="courseData.enName"
-                :ko-name="courseData.koName"/>
-            <v-list v-if="myChip">
+            <v-list v-if="!selectChip">
+                <v-list-item
+                    @click="select">
+                    <v-list-item-content>
+                        <v-list-tile-sub-title><small>Select</small></v-list-tile-sub-title>
+                    </v-list-item-content>
+                </v-list-item>
+            </v-list>
+            <v-list v-if="selectChip">
                 <v-list-item
                     @click="undo">
                     <v-list-item-content>
-                        <v-list-tile-sub-title><small>Undo</small></v-list-tile-sub-title>
+                        <v-list-tile-sub-title><small>Undo select</small></v-list-tile-sub-title>
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
@@ -50,7 +50,8 @@
         data: () => ({
             good_color: "green lighten-1",
             bad_color: "red lighten-1",
-            hmm_color: "yellow lighten-1"
+            hmm_color: "yellow lighten-1",
+            select_color: "grey lighten-2"
         }),
         computed: {
             ...mapState(['courses']),
@@ -58,21 +59,18 @@
                 return this.courses[this.index];
             }
         },
-        components: {
-            VoteList: () => import('@/components/VoteList')
-        },
         props: {
             courseId: Number,
             votes: Object,
-            myChip: Boolean,
+            selectChip: Boolean,
             index: Number
         },
         methods: {
             undo: function() {
                 this.$emit('deselect', this.courseId)
             },
-            sendVote: function(vote, prev) {
-                this.$emit('vote', this.courseId, vote, prev)
+            select: function() {
+                this.$emit('select', this.courseId)
             }
 
         }

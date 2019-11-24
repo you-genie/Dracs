@@ -77,7 +77,22 @@ export default new Vuex.Store({
         title: "I never learned any CS before",
         body: "I know C a little, but that's very little for me.",
         semesters: [
-          { semester: "2020 Spring", courses: []},
+          {
+            semester: "2020 Spring",
+            courses: [
+              {
+                index: 0,
+                selected: false,
+                myChip: false,
+                votes: {
+                  up: 3,
+                  down: 1,
+                  hmm: 0
+                }
+              },
+
+            ]
+          },
           { semester: "2020 Fall", courses:[] },
           { semester: "2021 Spring", courses: []}
         ],
@@ -121,7 +136,9 @@ export default new Vuex.Store({
     goToHome () {
       router.push({name: 'home'})
     },
-
+    goToQuestion (state, payload) {
+      router.push({name: 'question', params: {questionId: payload.questionId}})
+    }
   },
   modules: {
   }

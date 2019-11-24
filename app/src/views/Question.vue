@@ -2,7 +2,7 @@
     <div id="Question"> 
         <answer-board 
             :questionId="questionId"/>
-        <answer-card
+        <question-card
             :questionId="questionId" />
     </div>
 </template>
@@ -17,7 +17,7 @@
         },
         components: {
             AnswerBoard: () => import('@/components/SelectBoard'),
-            AnswerCard: () => import('@/components/AnswerCard')
+            QuestionCard: () => import('@/components/MyQuestionInfoCard')
         }
     }
 </script>

@@ -17,9 +17,10 @@
                     <select-chip 
                         v-on:deselect="deselect"
                         v-on:vote="vote"
-                        v-if="!course.selected"
+                        v-if="course.selected"
                         :index="course.index"
                         :my-chip="course.myChip"
+                        :selectChip="true"
                         :votes="course.votes"
                         :courseId="index" />
                 </div>
@@ -44,6 +45,7 @@
                         v-if="!course.selected"
                         :index="course.index"
                         :my-chip="course.myChip"
+                        :selectChip="false"
                         :votes="course.votes"
                         :courseId="index" />
                 </div>

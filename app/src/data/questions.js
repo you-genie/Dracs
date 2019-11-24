@@ -18,6 +18,16 @@ export default {
                   hmm: 0
                 }
               },
+              {
+                index: 4,
+                selected: true,
+                myChip: false,
+                votes: {
+                  up: 2,
+                  down: 2,
+                  hmm: 3
+                }
+              },
             ]
           },
           { semester: "2020 Fall", courses:[] },
