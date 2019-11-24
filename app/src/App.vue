@@ -12,6 +12,7 @@
 <script>
   import store from './store';
   import { db } from "./main";
+  import * as firebase from 'firebase';
 
   export default {
     name: 'App',
@@ -19,16 +20,49 @@
     },
     beforeMount() {
       let questions = {}
+      let myquestions = {}
+      let userID = '1234';
+      let user = '';
+
+      setTimeout(() => {
+        if (firebase.auth().currentUser) {
+          userID = firebase.auth().currentUser.uid
+          db.collection("users")
+            .where("userID", "==", userID).get()
+            .then(snapshot => {
+              snapshot.forEach(data => {
+                user = data.data();
+                store.dispatch('setUser', user);
+              });
+            });
+        }
+      }, 1000);
+
+      db.collection("users").get().then(snapshot => {
+        let users = {};
+        let count = 0
+        snapshot.forEach(doc => {
+          users[count] = doc.data();
+          count++;
+        })
+        store.dispatch('usersAppend', users);
+      });
+
       db.collection('questions').get().then(snapshot => {
         let count = 1;
         snapshot.forEach(doc => {
           if (doc.data().semesters) {
             let question = doc.data();
+            // console.log(userID);
+            if(question.userID === userID) {
+              myquestions[count] = question;
+            }
             questions[count] = question;
             count ++;
           }
         });
-        store.dispatch('dbRead',questions);
+        store.dispatch('dbQuestionRead',questions);
+        store.dispatch('myQuestion', myquestions);
         this.isDataGets = true;
       })
   },

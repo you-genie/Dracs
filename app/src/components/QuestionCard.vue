@@ -38,6 +38,11 @@
     data: () => ({
 
     }),
+    beforeMount() {
+      // console.log(this.questionId);
+      // console.log(this.user);
+      // console.log(this.body);
+    },
     props: {
       title: String,
       body: String,

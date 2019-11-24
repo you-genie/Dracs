@@ -16,6 +16,7 @@
     import {
         mapState
     } from 'vuex'
+    import store from './../store'
 
     export default {
         name: "SelectBoard",
@@ -30,7 +31,10 @@
             ...mapState({user: 'user', courseInfos: 'courses'}),
             semesters () {
                 return this.$store.state.my_questions[this.questionId].semesters
-            } 
+            },
+          courses() {
+            return this.$store.state.questions[this.questionId].courses
+          }
         },
         data: () => ({
             nullInfo: {
@@ -45,9 +49,12 @@
         methods: {
             deselectChip: function(semesterId, courseId) {
                 this.semesters[semesterId].courses[courseId].selected = false
+                store.dispatch('updateQuestion',[this.questionId, this.courses, this.semesters]);
             },
             selectChip: function(semesterId, courseId) {
                 this.semesters[semesterId].courses[courseId].selected = true
+              store.dispatch('updateQuestion',[this.questionId, this.courses, this.semesters]);
+
             },
             vote: function(semesterId, courseId, voteState, prevVote) {
                 if (voteState === 'down') {
@@ -65,6 +72,7 @@
                 } else if (prevVote === 'hmm') {
                     this.semesters[semesterId].courses[courseId].votes.hmm -= 1
                 }
+              store.dispatch('updateQuestion',[this.questionId, this.courses, this.semesters]);
             }
         }
     }

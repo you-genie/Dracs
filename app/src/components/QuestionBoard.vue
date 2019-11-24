@@ -5,7 +5,7 @@
       v-for="(question, key) in questions"
       v-bind:key="key"
       :title="question.title"
-      :user="users[question.userID]"
+      :user="users[userID] == question.userID"
       :questionId="key"
       :body="question.body" />
   </v-container>

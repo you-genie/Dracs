@@ -23,96 +23,52 @@ export default new Vuex.Store({
     },
     courses: courses.courses,
     user: {
-      userID: "1",
-      reputationPts: 13,
-      currentSemester: 1,
-      major: "0",
-      doubleMajor: "-1",
-      minor: "1",
-      coursesTaken: [
-        "101,2019,S", "109,2019,F"
-      ],
-      interestedArea: []
     },
     users: {
-      "2": {
-        reputationPts: 10,
-        currentSemester: 2,
-        major: "-1",
-        doubleMajor: "-1",
-        minor: "-1",
-        coursesTaken: [
-          "101,2019,S"
-        ],
-        interestedArea: [
-          "Internship"
-        ]
-      },
-      "3": {
-        reputationPts: 109,
-        currentSemester: 7,
-        major: "0",
-        doubleMajor: "2",
-        minor: "-1",
-        coursesTaken: [
-          "101,2015,S", "109,2015,S", 
-          "210,2016,S", "230,2016,S", "260,2016,F",
-          "320,2016,F", "360,2016,F"
-        ],
-        interestedArea: [
-          "Graphics", "Computer Vision", "AI"
-        ]
-      },
-      "4": {
-        reputationPts: 10,
-        currentSemester: 2,
-        major: "-1",
-        doubleMajor: "-1",
-        minor: "-1",
-        coursesTaken: [
-          "101,2019,S", "109,2019,S"
-        ],
-        interestedArea: [
-          "Major Selection"
-        ]
-      }
+      // "2": {
+      //   reputationPts: 10,
+      //   currentSemester: 2,
+      //   major: "-1",
+      //   doubleMajor: "-1",
+      //   minor: "-1",
+      //   coursesTaken: [
+      //     "101,2019,S"
+      //   ],
+      //   interestedArea: [
+      //     "Internship"
+      //   ]
+      // },
+      // "3": {
+      //   reputationPts: 109,
+      //   currentSemester: 7,
+      //   major: "0",
+      //   doubleMajor: "2",
+      //   minor: "-1",
+      //   coursesTaken: [
+      //     "101,2015,S", "109,2015,S",
+      //     "210,2016,S", "230,2016,S", "260,2016,F",
+      //     "320,2016,F", "360,2016,F"
+      //   ],
+      //   interestedArea: [
+      //     "Graphics", "Computer Vision", "AI"
+      //   ]
+      // },
+      // "4": {
+      //   reputationPts: 10,
+      //   currentSemester: 2,
+      //   major: "-1",
+      //   doubleMajor: "-1",
+      //   minor: "-1",
+      //   coursesTaken: [
+      //     "101,2019,S", "109,2019,S"
+      //   ],
+      //   interestedArea: [
+      //     "Major Selection"
+      //   ]
+      // }
     },
     questions: questions.questions,
-    my_questions: {
-      "1": {
-        title: "I never learned any CS before",
-        body: "I know C a little, but that's very little for me.",
-        semesters: [
-          {
-            semester: "2020 Spring",
-            courses: [
-              {
-                index: 0,
-                selected: false,
-                myChip: false,
-                votes: {
-                  up: 3,
-                  down: 1,
-                  hmm: 0
-                }
-              },
-
-            ]
-          },
-          { semester: "2020 Fall", courses:[] },
-          { semester: "2021 Spring", courses: []}
-        ],
-      },
-      "2": {
-        title: "I want to do internship",
-        body: "Can somebody help me with this question?",
-        semesters: [
-          { semester: "2020 Spring", courses: []},
-          { semester: "2020 Fall", courses:[] },
-          { semester: "2021 Spring", courses: []}
-        ],
-      },      
-    }
+    my_questions: {}
   },
   getters: {
     major_name: (state, id) => {
@@ -130,9 +86,12 @@ export default new Vuex.Store({
   },
   mutations: {
     addMyQuestion: function (state, payload) {
-      const length = Object.keys(state.my_questions).length + 1
+      const length = Object.keys(state.questions).length + 1
       const new_key = length + ""
       state.my_questions[new_key] = (payload.question)
+      state.questions[new_key] = (payload.question)
+      db.collection('questions').doc(new_key).set(payload.question);
+
     },
     fillFitList(state, payload) {
       let temp = []
@@ -170,14 +129,73 @@ export default new Vuex.Store({
       state.questions[payload[0]].courses = payload[1];
       state.questions[payload[0]].semesters = payload[2];
       db.collection('questions').doc(payload[0]).update(state.questions[payload[0]]);
+    },
+    MYQUESTION(state,payload) {
+      state.my_questions = payload;
+      /* add local test data */
+      state.my_questions["9999"] = {
+        title: "LOCAL ONLY",
+          body: "This is local data! it is not apply to database",
+          semesters: [
+          { semester: "2020 Spring", courses: [{
+              index: 0,
+              selected: false,
+              myChip: false,
+              votes: {
+                up: 3,
+                down: 1,
+                hmm: 0
+              }
+            }]
+          },
+          { semester: "2020 Fall", courses:[
+              {
+                index: 3,
+                selected: false,
+                myChip: false,
+                votes: {
+                  up: 2,
+                  down: 1,
+                  hmm: 0
+                }
+              },
+              {
+                index: 21,
+                selected: false,
+                myChip: false,
+                votes: {
+                  up: 3,
+                  down: 1,
+                  hmm: 0
+                }
+              }
+            ] },
+          { semester: "2021 Spring", courses: []}
+        ],
+      }
+    },
+    SETUSER (state, payload) {
+      state.user = payload;
+    },
+    USERAPPEND( state, payload) {
+      state.users = payload;
     }
   },
   actions: {
+    usersAppend (context, payload) {
+      context.commit('USERAPPEND', payload);
+    },
+    setUser (context, payload) {
+      context.commit('SETUSER', payload);
+    },
     updateQuestion (context ,payload) {
       context.commit('UPDATEQUESTION', payload)
     },
-    dbRead (context, payload) {
+    dbQuestionRead (context, payload) {
       context.commit('dbDataLoad', payload);
+    },
+    myQuestion (context, payload) {
+      context.commit('MYQUESTION', payload);
     },
     goToAnswer (state, payload) {
       router.push({name: 'answer', params: {questionId: payload.questionId}});
