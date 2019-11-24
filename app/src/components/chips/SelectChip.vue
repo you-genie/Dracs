@@ -12,8 +12,8 @@
                 class="ma-2"
                 :color="votes >= 0?good_color:bad_color"
             >
-                {{code}}
-                <v-avatar right small color="white">{{votes}}</v-avatar>
+                {{courseData.code}}
+                <v-avatar right small color="white">{{votes.up - votes.down}}</v-avatar>
             </v-chip>                    
         </template>
         <v-card
@@ -22,8 +22,8 @@
                 v-on:upvote="upvote"
                 v-on:downvote="downvote"
                 v-on:hmm="hmm"
-                :en-name="enName"
-                :ko-name="koName"/>
+                :en-name="courseData.enName"
+                :ko-name="courseData.koName"/>
             <v-list v-if="myChip">
                 <v-list-item
                     @click="undo">
@@ -38,23 +38,30 @@
 </template>
 
 <script>
+    import {
+        mapState
+    } from 'vuex'
+
     export default {
         name: "YourSelectChip",
         data: () => ({
             good_color: "green lighten-1",
             bad_color: "red lighten-1",
         }),
+        computed: {
+            ...mapState(['courses']),
+            courseData () {
+                return this.courses[this.index];
+            }
+        },
         components: {
             VoteList: () => import('@/components/VoteList')
         },
         props: {
-            code: String,
-            enName: String,
-            koName: String,
             courseId: Number,
-            votes: Number,
+            votes: Object,
             myChip: Boolean,
-            voted: Boolean
+            index: Number
         },
         methods: {
             undo: function() {

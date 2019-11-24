@@ -12,7 +12,7 @@
                 class="ma-2"
                 :color="good?good_color:bad_color"
             >
-                {{code}} {{votes}}
+                {{courseData.code}} {{votes}}
             </v-chip>                    
         </template>
         <v-card
@@ -54,6 +54,10 @@
 </template>
 
 <script>
+    import {
+        mapState
+    } from 'vuex'
+
     export default {
         name: "VoteChip",
         data: () => ({
@@ -61,7 +65,14 @@
             bad_color: "red lighten-1",
             good: true
         }),
+        computed: {
+            ...mapState(['courses']),
+            courseData() {
+                return this.courses[this.index]
+            }
+        },
         props: {
+            index: Number,
             code: String,
             votes: Number,
         },

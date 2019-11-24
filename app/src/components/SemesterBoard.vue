@@ -27,10 +27,8 @@
                     v-for="(course, index) in items" v-bind:key="index"
                     v-on:deselect="deselect"
                     v-on:vote="vote"
-                    :code="course.code"
-                    :en-name="course.enName"
-                    :ko-name="course.koName"
-                    :my-chip="course.my_item"
+                    :index="course.index"
+                    :my-chip="course.myChip"
                     :votes="course.votes"
                     :courseId="index" />
             </v-container>
