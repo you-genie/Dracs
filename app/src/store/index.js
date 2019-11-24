@@ -4,6 +4,8 @@ import courses from '@/data/course'
 import questions from '@/data/questions'
 import router from '@/router/router'
 
+import { db } from '../main'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -127,6 +129,15 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    getQuestions: () => {
+      db.collection('questions').onSnapshot((data) => {
+        data.forEach(doc => {
+          console.log(doc.data());
+        })
+      }, (errorObject) => {
+        console.log(errorObject);
+      });
+    },
     goToAnswer (state, payload) {
       router.push({name: 'answer', params: {questionId: payload.questionId}});
     },
