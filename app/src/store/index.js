@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import courses from '@/data/course'
 import questions from '@/data/questions'
+import router from '@/router/router'
 
 Vue.use(Vuex)
 
@@ -106,6 +107,9 @@ export default new Vuex.Store({
   mutations: {
   },
   actions: {
+    goToAnswer (state, payload) {
+      router.push({name: 'answer', params: {questionId: payload.questionId}});
+    }
   },
   modules: {
   }
