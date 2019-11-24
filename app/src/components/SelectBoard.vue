@@ -1,7 +1,6 @@
 <template>
-    <v-container>
         <v-col>
-            <v-row justify="space-between">
+            <v-row noGutters alignXl justify="center">
                 <semester-board 
                     v-for="(semester, index) in semesters"
                     v-bind:key="index"
@@ -12,8 +11,6 @@
                     v-on:deselect-course="deselectChip"/>
             </v-row>
         </v-col>
-
-    </v-container>
 </template>
 <script>
     import {

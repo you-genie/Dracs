@@ -1,6 +1,6 @@
 <template>
     <v-card
-        max-width="30%"
+        max-width="33%"
         class="auto"
         width="70%"
         height="500"
@@ -10,12 +10,13 @@
         <v-card 
             outlined
             class="ma-3"
-            height="15%">
+            height="30%">
             <v-card-text><span>Selected courses by me</span></v-card-text>
         </v-card>
+        <v-spacer></v-spacer>
         <v-card 
             class="ma-3"
-            height="60%"
+            height="40%"
             outlined
             v-bind:color="cardColor">
             <v-card-text><span>Suggestions for me</span></v-card-text>
