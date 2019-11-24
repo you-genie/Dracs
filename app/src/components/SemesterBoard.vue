@@ -27,10 +27,8 @@
                     v-for="(course, index) in items" v-bind:key="index"
                     v-on:deselect="deselect"
                     v-on:vote="vote"
-                    :code="course.code"
-                    :en-name="course.enName"
-                    :ko-name="course.koName"
-                    :my-chip="course.my_item"
+                    :index="course.index"
+                    :my-chip="course.myChip"
                     :votes="course.votes"
                     :courseId="index" />
             </v-container>
@@ -62,7 +60,7 @@
             allowDrop: function(event) {
                 event.preventDefault();
                 this.$emit('drag-allow-semester', this.semesterId)
-                this.cardColor = "grey darken-2"
+                this.cardColor = "grey lighten-3"
             },
             drop: function() {
                 event.preventDefault();

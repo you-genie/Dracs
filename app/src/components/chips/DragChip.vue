@@ -9,23 +9,31 @@
                 @dragend="end"
                 v-on="on"
             >
-                {{code}}
+                {{courseData.code}}
             </v-chip>
         </template>
-        <span>[{{enName}}] {{koName}}</span>
+        <span>[{{courseData.enName}}] {{courseData.koName}}</span>
     </v-tooltip>
 </template>
 
 <script>
+    import {
+        mapState
+    } from 'vuex'
+
     export default {
         name: "DragChip",
         data: () => ({
-            nonselect: "white"
+            nonselect: "orange",
         }),
+        computed: {
+            ...mapState(['courses']),
+            courseData() {
+                return this.courses[this.index]
+            }
+        },
         props: {
-            code: String,
-            enName: String,
-            koName: String,
+            index: Number,
             courseId: Number
         },
         methods: {
