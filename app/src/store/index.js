@@ -98,6 +98,9 @@ export default new Vuex.Store({
     },
     courseInfo: (state, index) => {
       return state.courses[index]
+    },
+    question: (state, index) => {
+      return state.questions[index]
     }
   },
   mutations: {

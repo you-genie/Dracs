@@ -74,7 +74,7 @@
             text
             @click="clickSearch"
           >
-            Submit
+            search
           </v-btn>
         </v-card-actions>
     </v-card>

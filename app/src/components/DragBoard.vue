@@ -39,11 +39,17 @@
             SemesterBoard: () => import('@/components/SemesterBoard')
         },
         props: {
-            unselected: Array,
+            questionId: String
             // semesters: Array
         },
         computed: {
             ...mapState({user: 'user', courseInfos: 'courses'}),
+            semesters () {
+                return this.$store.state.questions[this.questionId].semesters
+            },
+            courses() {
+                return this.$store.state.questions[this.questionId].courses               
+            } 
         },
         data: () => ({
             nullInfo: {
@@ -52,26 +58,26 @@
                 koName: "Temp"
             },
             currentId: -1,
-            semesters: [
-              {
-                semester: "2020 Spring",
-                courses: [
-                  {
-                    index: 0,
-                    selected: false,
-                    myChip: false,
-                    votes: {
-                      up: 3,
-                      down: 1,
-                      hmm: 0
-                    }
-                  },
-                ]
-              },
-              { semester: "2020 Fall", courses:[] },
-              { semester: "2021 Spring", courses: []}
-            ],
-            courses: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26],
+            // semesters: [
+            //   {
+            //     semester: "2020 Spring",
+            //     courses: [
+            //       {
+            //         index: 0,
+            //         selected: false,
+            //         myChip: false,
+            //         votes: {
+            //           up: 3,
+            //           down: 1,
+            //           hmm: 0
+            //         }
+            //       },
+            //     ]
+            //   },
+            //   { semester: "2020 Fall", courses:[] },
+            //   { semester: "2021 Spring", courses: []}
+            // ],
+            // courses: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26],
             currentSemesterId: -1,
             onDrag: false
         }),

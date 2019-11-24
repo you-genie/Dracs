@@ -14,7 +14,8 @@ export default {
                 myChip: false,
                 votes: {
                   up: 3,
-                  down: 1
+                  down: 1,
+                  hmm: 0
                 }
               },
             ]

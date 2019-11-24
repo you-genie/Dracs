@@ -3,7 +3,8 @@
 <!--     <banner />
     <answer-card />
     <answer-board /> -->
-    <test-board />
+      <answer-board 
+        :questionId="questionId"/>
     </div>
 </template>
 
@@ -12,8 +13,11 @@
 // import banner, answer-card, answer-board component. Fill in banner plz.
     export default {
         name: 'Answer',
+        props: {
+          questionId: String
+        },
         components: {
-            TestBoard: () => import('@/components/DragBoard')
+            AnswerBoard: () => import('@/components/DragBoard')
         }
     }
 </script>
