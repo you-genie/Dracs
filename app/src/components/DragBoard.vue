@@ -1,7 +1,6 @@
 <template>
-    <v-container>
-        <v-col>
-            <v-row justify="space-between">
+    <v-col>
+            <v-row noGutters alignXl>
                 <semester-board 
                     v-for="(semester, index) in semesters"
                     v-bind:key="index"
@@ -23,9 +22,8 @@
                     v-on:drag-on="getDrag"
                     v-on:drag-end="addSemesterChip"/>
             </v-row>
-        </v-col>
 
-    </v-container>
+    </v-col>
 </template>
 <script>
     import {

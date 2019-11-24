@@ -1,6 +1,6 @@
 <template>
     <v-card
-        max-width="30%"
+        max-width="33%"
         class="auto"
         width="70%"
         height="500"
@@ -10,27 +10,43 @@
         <v-card 
             outlined
             class="ma-3"
-            height="15%">
-            <v-card-text><span>Selected by User</span></v-card-text>
+            height="30%">
+            <v-card-text>
+                <small>Selected by User</small>
+                <div v-for="(course, index) in items" v-bind:key="index">
+                    <select-chip 
+                        v-on:deselect="deselect"
+                        v-on:vote="vote"
+                        v-if="!course.selected"
+                        :index="course.index"
+                        :my-chip="course.myChip"
+                        :votes="course.votes"
+                        :courseId="index" />
+                </div>
+            </v-card-text>
+
         </v-card>
+        <v-spacer></v-spacer>
         <v-card 
             class="ma-3"
-            height="60%"
             outlined
+            height="40%"
             v-bind:color="cardColor"
             v-on:dragover="allowDrop"
             v-on:dragleave.prevent="leaveDrag"
             v-on:drop="drop">
             <v-card-text><span>On Vote</span></v-card-text>
             <v-container>
-                <select-chip 
-                    v-for="(course, index) in items" v-bind:key="index"
-                    v-on:deselect="deselect"
-                    v-on:vote="vote"
-                    :index="course.index"
-                    :my-chip="course.myChip"
-                    :votes="course.votes"
-                    :courseId="index" />
+                <div v-for="(course, index) in items" v-bind:key="index">
+                    <select-chip 
+                        v-on:deselect="deselect"
+                        v-on:vote="vote"
+                        v-if="!course.selected"
+                        :index="course.index"
+                        :my-chip="course.myChip"
+                        :votes="course.votes"
+                        :courseId="index" />
+                </div>
             </v-container>
             <v-container>
             </v-container>
@@ -43,7 +59,7 @@
         props: {
             semester: String,
             items: Array,
-            semesterId: Number
+            semesterId: Number,
         },
         components: {
             SelectChip: () => import('@/components/chips/SelectChip')

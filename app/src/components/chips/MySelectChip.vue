@@ -14,7 +14,7 @@
                 :color="votes.up - votes.down >= 0?good_color:bad_color"
             >
                 {{courseData.code}}
-                <v-avatar right small size=10 color="white">{{votes.up - votes.down}}</v-avatar>
+                <v-avatar right small color="white">{{votes.up - votes.down}}</v-avatar>
             </v-chip>                    
         </template>
         <v-card

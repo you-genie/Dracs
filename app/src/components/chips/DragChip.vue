@@ -3,6 +3,7 @@
         <template v-slot:activator="{ on }">
             <v-chip draggable light
                 class="ma-2"
+                small
                 :color="nonselect"
                 @dragstart="drag"
                 @drag.prevent="drag"

@@ -8,6 +8,7 @@
     >
         <template v-slot:activator="vote">
             <v-chip light
+                small
                 v-on="vote.on"
                 class="ma-2"
                 :color="good?good_color:bad_color"

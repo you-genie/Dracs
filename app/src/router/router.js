@@ -4,6 +4,7 @@ import Home from '@/views/Home.vue'
 import Answer from '@/views/Answer.vue'
 import Search from '@/views/Search.vue'
 import Post from '@/views/Post.vue'
+import Question from '@/views/Question.vue'
 
 Vue.use(Router)
 
@@ -31,6 +32,12 @@ export default new Router({
             path: '/post/',
             name: 'post',
             component: Post
+        },
+        {
+            path: '/question/:questionId',
+            name: 'question',
+            component: Question,
+            props: true
         }
     ]
 })
