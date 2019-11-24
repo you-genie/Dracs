@@ -64,6 +64,7 @@ export default {
           .signOut()
           .then(() => {
             store.commit("changeLoginState", false);
+            store.commit("updateReputationPts", 0)
           });
       }
     }

@@ -34,8 +34,6 @@ export default new Vuex.Store({
                     });
             }
 
-
-
         },
         changeLoginState(state, payload) {
             state.isLoggedIn = payload
