@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 import courses from '@/data/course'
 import questions from '@/data/questions'
 
+import { db } from '../firebase'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -103,6 +105,11 @@ export default new Vuex.Store({
   mutations: {
   },
   actions: {
+    setItem: () => {
+      db.collection('questions').get().then( (res) => {
+        print(res);
+      });
+    }
   },
   modules: {
   }
