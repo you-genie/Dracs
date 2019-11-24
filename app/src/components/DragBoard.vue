@@ -29,6 +29,9 @@
     import {
         mapState
     } from 'vuex'
+    import { db } from "../main"
+    import store from '../store'
+
 
     export default {
         name: "DragBoard",
@@ -56,26 +59,6 @@
                 koName: "Temp"
             },
             currentId: -1,
-            // semesters: [
-            //   {
-            //     semester: "2020 Spring",
-            //     courses: [
-            //       {
-            //         index: 0,
-            //         selected: false,
-            //         myChip: false,
-            //         votes: {
-            //           up: 3,
-            //           down: 1,
-            //           hmm: 0
-            //         }
-            //       },
-            //     ]
-            //   },
-            //   { semester: "2020 Fall", courses:[] },
-            //   { semester: "2021 Spring", courses: []}
-            // ],
-            // courses: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26],
             currentSemesterId: -1,
             onDrag: false
         }),
@@ -109,7 +92,8 @@
                                 hmm: 0
                             }
                         }
-                        this.semesters[semesterId].courses.push(item)                        
+                        this.semesters[semesterId].courses.push(item);
+                        store.commit('increaseReputationPts', 1)
                     }
                     this.courses.splice(this.currentId, 1)
                     this.currentId = -1
@@ -129,22 +113,57 @@
                 this.courses.push(targetCourse.index)
             },
             vote: function(semesterId, courseId, voteState, prevVote) {
-                if (voteState === 'down') {
-                    this.semesters[semesterId].courses[courseId].votes.down += 1
-                } else if (voteState === 'up') {
-                    this.semesters[semesterId].courses[courseId].votes.up += 1
-                } else if (voteState === 'hmm') {
-                    this.semesters[semesterId].courses[courseId].votes.hmm += 1
-                }
+              if (voteState === 'down') {
+                this.semesters[semesterId].courses[courseId].votes.down += 1
+              } else if (voteState === 'up') {
+                this.semesters[semesterId].courses[courseId].votes.up += 1
+              } else if (voteState === 'hmm') {
+                this.semesters[semesterId].courses[courseId].votes.hmm += 1
+              }
 
-                if (prevVote === 'down') {
-                    this.semesters[semesterId].courses[courseId].votes.down -= 1
-                } else if (prevVote === 'up') {
-                    this.semesters[semesterId].courses[courseId].votes.up -= 1
-                } else if (prevVote === 'hmm') {
-                    this.semesters[semesterId].courses[courseId].votes.hmm -= 1
+              if (prevVote === 'down') {
+                this.semesters[semesterId].courses[courseId].votes.down -= 1
+              } else if (prevVote === 'up') {
+                this.semesters[semesterId].courses[courseId].votes.up -= 1
+              } else if (prevVote === 'hmm') {
+                this.semesters[semesterId].courses[courseId].votes.hmm -= 1
+              }
+            },
+    reputationUpdate: function(questionID, code, year, isSpring) {
+      db.collection("votes")
+        .orderBy("questionID", "asc")
+        .get()
+        .then(snapshot => {
+          snapshot.forEach(doc => {
+            if (doc.data().questionID == questionID) {
+              let voteHistory = doc.data().upvoteHistory;
+              for (var i = 0; i < voteHistory.length; i++) {
+                let upvoteList = voteHistory[i].split(",");
+                if (upvoteList.length >= 3) {
+                  for (var j = 3; j < upvoteList.length; j++) {
+                    if (
+                      code == upvoteList[0] &&
+                      year == upvoteList[1] &&
+                      (isSpring ? "S" : "F") == upvoteList[2]
+                    ) {
+                      let userID = parseInt(upvoteList[j]);
+                      db.collection("users")
+                        .where("userID", "==", userID)
+                        .get()
+                        .then(snapshot => {
+                          snapshot.forEach(doc => {
+                            let newReputationPts = doc.data().reputationPts + 4;
+                            doc.ref.update({ reputationPts: newReputationPts });
+                          });
+                        });
+                    }
+                  }
                 }
+              }
             }
-        }
+          });
+        });
     }
+  }
+};
 </script>

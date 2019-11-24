@@ -1,31 +1,52 @@
+# CS473 DP : Team Random
+
+## Description for DP4 evaluation
+- Main javascript file (main.js) is saved in app/src/ directory.
+
+- Feature implemenation is saved in app/src/components and app/src/components/core directory. Implementation on chips are saved in app/src/components/chips directory.
+
+- if you want to reproduce our server, please follow the instructions saved in readme.md of /app directory.
+
+- Contents below are here for our convinience, not for the grading of DP4. However, if you are intertesed, you can look at it.
+
+
 ## Run / install
 - install  
 npm install
 - run  
 npm run serve
 
-Database Structure
+## Database Structure
 
+### users
+- userID (int)
+- reputationPts (int)
+- currentSemester (int)
+- major (int): -1 for undecided, 0 for CS, 1 for EE, 2 for MAS, 3 for others
+- doubleMajor (int): -1 for None, 0 for CS, 1 for EE, 2 for MAS, 3 for others
+- minor (int): -1 for None, 0 for CS, 1 for EE, 2 for MAS, 3 for others
+- coursesTaken (array)
+   - (string) courseID, year, semester [e.g., "101,2019,S"]
+- interestedArea (array)
+   - (string) area, area, area, ...
 
+### questions
+- questionID (int)
+- userID (int) 
+- description (str)
+- courses (array)
+   - (string) courseID, year, semester, isSelected, upvote, downvote
+- comments (array)
+   - (string) userID,  comment
 
-User
-
-- UserID 1(유저 교유 ID  != 유저 로그인 이메일)
-  - Semester (재학 학기, 학기 수, number)
-  - Major 
-    - Major (주전공)
-    - Double Major(복수전공, default = None)
-    - Minor (부전공, default = None)
-  - Certificates
-    - Course1 (과목 코드, string)
-      - Ko (과목 한글 이름, string)
-      - En (과목 영어 이름, string)
-    - Course2
-
-* UserID 2
-
-
-
+### votes
+ - questionID (int)
+ - upvoteHistory (array)
+    - (string) courseID, year, semester, userID, userID, ...
+ - downvoteHistory (array)
+    - (string) courseID, year, semester, userID, userID, ...
+    
+    
 Login 
 
 * UserLoginID (유저 로그인 아이디, ex. tkdgh97531@gmail.com)

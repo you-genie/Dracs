@@ -6,12 +6,9 @@ import router from './router/router'
 
 import { firestorePlugin } from 'vuefire'
 import firebase from 'firebase/app';
+import { config } from "./firebase";
 import 'firebase/firestore';
-
-const config = {
-  databaseURL: "https://cs473-dragcs.firebaseio.com",
-  projectId: "cs473-dragcs",
-}
+import 'firebase/auth'
 
 Vue.use(firestorePlugin);
 Vue.prototype.$firebase = firebase;
@@ -21,9 +18,13 @@ firebase.initializeApp(config)
 
 export const db = firebase.firestore()
 
+/* eslint-disable no-console */
+
+store.dispatch('getSearchData', [1, -1, -1, -1, "HCI"])
+    /* eslint-enable no-console */
 new Vue({
-  vuetify,
-  router,
-  store,
-  render: h => h(App)
+    vuetify,
+    router,
+    store,
+    render: h => h(App)
 }).$mount('#app')

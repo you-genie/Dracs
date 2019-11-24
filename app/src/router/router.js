@@ -5,14 +5,15 @@ import Answer from '@/views/Answer.vue'
 import Search from '@/views/Search.vue'
 import Post from '@/views/Post.vue'
 import Question from '@/views/Question.vue'
+import SignUp from '@/views/SignUp.vue'
+import Login from '@/views/Login'
 
 Vue.use(Router)
 
 export default new Router({
     mode: 'history',
     base: process.env.BASE_URL,
-    routes: [
-        {
+    routes: [{
             path: '/',
             name: 'home',
             component: Home
@@ -38,6 +39,16 @@ export default new Router({
             name: 'question',
             component: Question,
             props: true
-        }
+        },
+        {
+            path: '/signup',
+            name: 'SignUp',
+            component: SignUp
+        },
+        {
+            path: '/login',
+            name: 'Login',
+            component: Login
+        },
     ]
 })
