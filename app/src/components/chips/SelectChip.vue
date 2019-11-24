@@ -10,18 +10,20 @@
             <v-chip light
                 v-on="vote.on"
                 class="ma-2"
-                :color="votes >= 0?good_color:bad_color"
+                :color="votes.up - votes.down >= 0?good_color:bad_color"
             >
                 {{courseData.code}}
                 <v-avatar right small color="white">{{votes.up - votes.down}}</v-avatar>
             </v-chip>                    
         </template>
         <v-card
-            max-width="150">
+            max-width="300">
             <vote-list v-if="!myChip"
-                v-on:upvote="upvote"
-                v-on:downvote="downvote"
-                v-on:hmm="hmm"
+                v-on:send-vote="sendVote"
+                v-on:reset="reset"
+                :default-up="votes.up"
+                :default-down="votes.down"
+                :default-hmm="votes.hmm"
                 :en-name="courseData.enName"
                 :ko-name="courseData.koName"/>
             <v-list v-if="myChip">
@@ -47,6 +49,7 @@
         data: () => ({
             good_color: "green lighten-1",
             bad_color: "red lighten-1",
+            hmm_color: "yellow lighten-1"
         }),
         computed: {
             ...mapState(['courses']),
@@ -67,14 +70,8 @@
             undo: function() {
                 this.$emit('deselect', this.courseId)
             },
-            downvote: function() {
-                this.$emit('vote', this.courseId, 'downvote')
-            },
-            upvote: function() {
-                this.$emit('vote', this.courseId, 'upvote')
-            },
-            hmm: function() {
-                this.$emit('vote', this.courseId, 'hmm')
+            sendVote: function(vote, prev) {
+                this.$emit('vote', this.courseId, vote, prev)
             }
 
         }
