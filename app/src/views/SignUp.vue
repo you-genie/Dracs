@@ -96,7 +96,6 @@ export default {
   },
   methods: {
     processSignUp: function() {
-      /* eslint-disable no-console */
       // first, check the value
       if (
         this.email == "" ||

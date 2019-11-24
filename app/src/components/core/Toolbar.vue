@@ -28,8 +28,6 @@ import firebase from "firebase";
 import { db } from "../../main";
 import store from "../../store";
 
-/* eslint-disable no-console */
-
 setTimeout(() => {
   if (firebase.auth().currentUser == null) {
     store.commit("changeLoginState", false);
@@ -56,7 +54,6 @@ export default {
   watch: {},
   methods: {
     logInAndOut: function() {
-      console.log("button pressed", firebase.auth().currentUser);
       if (firebase.auth().currentUser == null) {
         // move to login page
         this.$router.replace("login");

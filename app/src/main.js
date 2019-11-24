@@ -31,8 +31,8 @@ export const db = firebase.firestore()
 
 /* eslint-disable no-console */
 
-store.dispatch('getSearchData', [1, -1, -1, -1, "HCI"])
-    /* eslint-enable no-console */
+store.dispatch('getSearchData', [1, -1, -1, -1, "HCI"]) *
+    eslint - enable no - console * /
 new Vue({
     vuetify,
     router,
