@@ -18,7 +18,7 @@
           </v-list-item-subtitle>
           <v-list-item-subtitle>
             <small> I took these classes: </small>
-            <v-chip x-small color="red" label class="ma-1"
+            <v-chip x-small color="green lighten-3" label class="ma-1"
               v-for="(course, index) in questioner.coursesTaken"
               :key="index">{{course}}</v-chip>
           </v-list-item-subtitle>

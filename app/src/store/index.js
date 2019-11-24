@@ -105,11 +105,23 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    addMyQuestion: function (state, payload) {
+      const length = Object.keys(state.my_questions).length + 1
+      const new_key = length + ""
+      state.my_questions[new_key] = (payload.question)
+    }
   },
   actions: {
     goToAnswer (state, payload) {
       router.push({name: 'answer', params: {questionId: payload.questionId}});
-    }
+    },
+    goToPost () {
+      router.push({name: 'post'});
+    },
+    goToHome () {
+      router.push({name: 'home'})
+    },
+
   },
   modules: {
   }

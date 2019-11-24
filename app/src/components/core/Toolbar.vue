@@ -3,23 +3,17 @@
     app
     flat
   >
-    <v-toolbar-title>Home</v-toolbar-title>
-    <v-toolbar-side-icon
-      class="hidden-md-and-up"
-    />
-    <v-container
-      mx-auto
-      py-0
-    >
-      <v-layout>
+    <v-toolbar-title >DraCS
+    </v-toolbar-title>
 
+    <v-btn icon color="primary" @click="goToHome"><v-icon>mdi-home</v-icon></v-btn>
 
-      </v-layout>
-    </v-container>
+    
   </v-app-bar>
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
 
   export default {
     computed: {
@@ -27,6 +21,7 @@
     watch: {
     },
     methods: {
+      ...mapActions(['goToHome'])
     }
   }
 </script>

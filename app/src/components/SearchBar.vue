@@ -30,8 +30,20 @@
               multiple
               :search-input.sync="query"
               prepend-inner-icon="mdi-magnify" />
+            <v-btn
+              absolute
+              dark
+              fab
+              right
+              @click="goToPost"
+              color="primary"
+            >
+              <v-icon>mdi-plus</v-icon>
+            </v-btn>
           </v-container>
+
         </v-form>
+
       </template>
     <v-card>
       <v-card-text>
@@ -87,6 +99,11 @@
 <script>
 // this is page for search.
 // import banner, search-card(containing search query and selection cards, question-board(with question-cards(component)) component. Fill in banner plz.
+
+import {
+  mapActions
+} from 'vuex'
+
 export default {
   name: 'SearchBar',
   components: {
@@ -129,6 +146,7 @@ export default {
         });
       });
     },
+    ...mapActions(['goToPost']),
     clickSearch() {
       this.menu = false
       this.$emit('search_click', this.all_queries)
