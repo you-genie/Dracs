@@ -46,16 +46,16 @@ export default {
       //   ],
       //   courses: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
       // },
-      "3": {
-        userID: "3",
-        title: "How to study AI",
-        body: "Can somebody help me with this question?",
-        semesters: [
-          { semester: "2020 Spring", courses: []},
-          { semester: "2020 Fall", courses:[] },
-          { semester: "2021 Spring", courses: []}
-        ],
-        courses: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
-      }
+      // "3": {
+      //   userID: "3",
+      //   title: "How to study AI",
+      //   body: "Can somebody help me with this question?",
+      //   semesters: [
+      //     { semester: "2020 Spring", courses: []},
+      //     { semester: "2020 Fall", courses:[] },
+      //     { semester: "2021 Spring", courses: []}
+      //   ],
+      //   courses: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+      // }
   }
 }

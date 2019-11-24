@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app v-if="isDataGets">
     <core-toolbar />
 
     <core-view />
@@ -29,6 +29,7 @@
           }
         });
         store.dispatch('dbRead',questions);
+        this.isDataGets = true;
       })
   },
     methods: {
@@ -42,6 +43,7 @@
     },
     data () {
       return {
+        isDataGets: false,
       //
       }
     }

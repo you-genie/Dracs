@@ -100,7 +100,7 @@
                     this.currentSemesterId = -1
                 }
                 this.onDrag = false;
-                store.dispatch('updateTest',[this.questionId, this.courses, this.semesters]);
+                store.dispatch('updateQuestion',[this.questionId, this.courses, this.semesters]);
             },
             deselectChip: function(semesterId, courseId) {
                 this.semesters[semesterId].courses[courseId].votes.up -= 1
@@ -112,7 +112,7 @@
                 }
                 
                 this.courses.push(targetCourse.index)
-              store.dispatch('updateTest',[this.questionId, this.courses, this.semesters]);
+              store.dispatch('updateQuestion',[this.questionId, this.courses, this.semesters]);
             },
             vote: function(semesterId, courseId, voteState, prevVote) {
               if (voteState === 'down') {
@@ -130,7 +130,7 @@
               } else if (prevVote === 'hmm') {
                 this.semesters[semesterId].courses[courseId].votes.hmm -= 1
               }
-              store.dispatch('updateTest',[this.questionId, this.courses, this.semesters]);
+              store.dispatch('updateQuestion',[this.questionId, this.courses, this.semesters]);
             },
     reputationUpdate: function(questionID, code, year, isSpring) {
       db.collection("votes")

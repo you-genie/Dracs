@@ -166,14 +166,15 @@ export default new Vuex.Store({
     dbDataLoad(state, payload = null) {
       state.questions = payload;
     },
-    updateQuestion(state, payload) {
+    UPDATEQUESTION(state, payload) {
       state.questions[payload[0]].courses = payload[1];
       state.questions[payload[0]].semesters = payload[2];
+      db.collection('questions').doc(payload[0]).update(state.questions[payload[0]]);
     }
   },
   actions: {
-    updateTest ( context ,payload) {
-      context.commit('updateQuestion', payload)
+    updateQuestion (context ,payload) {
+      context.commit('UPDATEQUESTION', payload)
     },
     dbRead (context, payload) {
       context.commit('dbDataLoad', payload);
