@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import courses from '@/data/course'
 import questions from '@/data/questions'
+import router from '@/router/router'
 
 import { db } from '../main'
 
@@ -100,9 +101,17 @@ export default new Vuex.Store({
     },
     courseInfo: (state, index) => {
       return state.courses[index]
+    },
+    question: (state, index) => {
+      return state.questions[index]
     }
   },
   mutations: {
+    addMyQuestion: function (state, payload) {
+      const length = Object.keys(state.my_questions).length + 1
+      const new_key = length + ""
+      state.my_questions[new_key] = (payload.question)
+    }
   },
   actions: {
     getQuestions: () => {
@@ -113,7 +122,17 @@ export default new Vuex.Store({
       }, (errorObject) => {
         console.log(errorObject);
       });
-    }
+    },
+    goToAnswer (state, payload) {
+      router.push({name: 'answer', params: {questionId: payload.questionId}});
+    },
+    goToPost () {
+      router.push({name: 'post'});
+    },
+    goToHome () {
+      router.push({name: 'home'})
+    },
+
   },
   modules: {
   }

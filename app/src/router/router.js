@@ -17,9 +17,10 @@ export default new Router({
             component: Home
         },
         {
-            path: '/answer/:answer_num/',
+            path: '/answer/:questionId',
             name: 'answer',
-            component: Answer
+            component: Answer,
+            props: true
         },
         {
             path: '/search/',

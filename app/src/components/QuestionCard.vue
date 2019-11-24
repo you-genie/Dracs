@@ -2,6 +2,7 @@
   <v-card 
     height="150"
     outlined 
+    @click='route'
     class="ma-3">
     <v-list three-lines
       dense>
@@ -27,9 +28,11 @@
 
 <script>
  import {
-    mapState, 
+    mapState,
+    mapActions
     // mapGetters
   } from 'vuex'
+
   export default {
     name: "QuestionCard",
     data: () => ({
@@ -38,10 +41,17 @@
     props: {
       title: String,
       body: String,
-      user: Object
+      user: Object,
+      questionId: String
     },
     computed: {
-      ...mapState(['majorTags'])
+      ...mapState(['majorTags']),
+    },
+    methods: {
+      ...mapActions(['goToAnswer']),
+      route () {
+          this.goToAnswer({questionId: this.questionId});
+      }
     }
   }
 </script>

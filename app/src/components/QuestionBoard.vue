@@ -6,6 +6,7 @@
       v-bind:key="key"
       :title="question.title"
       :user="users[question.userID]"
+      :questionId="key"
       :body="question.body" />
   </v-container>
 </template>
@@ -15,6 +16,7 @@
     mapState, 
     // mapGetters
   } from 'vuex'
+
   export default {
     name: "QuestionBoard",
     components: {

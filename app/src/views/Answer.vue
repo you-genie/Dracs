@@ -1,9 +1,9 @@
 <template>
     <div id="Answer"> 
-<!--     <banner />
-    <answer-card />
-    <answer-board /> -->
-    <test-board />
+      <answer-card
+        :questionId="questionId" />
+      <answer-board 
+        :questionId="questionId"/>
     </div>
 </template>
 
@@ -12,8 +12,12 @@
 // import banner, answer-card, answer-board component. Fill in banner plz.
     export default {
         name: 'Answer',
+        props: {
+          questionId: String
+        },
         components: {
-            TestBoard: () => import('@/components/DragBoard')
+            AnswerBoard: () => import('@/components/DragBoard'),
+            AnswerCard: () => import('@/components/AnswerCard')
         }
     }
 </script>
