@@ -1,8 +1,7 @@
 <template>
     <div id="Answer"> 
-<!--     <banner />
-    <answer-card />
-    <answer-board /> -->
+      <answer-card
+        :questionId="questionId" />
       <answer-board 
         :questionId="questionId"/>
     </div>
@@ -17,7 +16,8 @@
           questionId: String
         },
         components: {
-            AnswerBoard: () => import('@/components/DragBoard')
+            AnswerBoard: () => import('@/components/DragBoard'),
+            AnswerCard: () => import('@/components/AnswerCard')
         }
     }
 </script>
