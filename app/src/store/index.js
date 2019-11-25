@@ -227,7 +227,7 @@ export default new Vuex.Store({
     },
     fetchQuestion(context) {
 
-      const userID = context.state.user.userID
+      const userID = firebase.auth().currentUser.uid // was context.state.user.userID
       console.log(userID)
       db.collection('questions').get().then(snapshot => {
         // let count = 1;
