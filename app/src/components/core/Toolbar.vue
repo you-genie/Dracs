@@ -1,24 +1,22 @@
 <template>
   <v-app-bar app flat>
     <v-toolbar flat>
-      <v-toolbar-title @click="goToHome">Home</v-toolbar-title>
-
+      <v-toolbar-title >
+        <v-btn text icon @click="goToHome">
+          DraCS
+        </v-btn>
+      </v-toolbar-title>
       <v-spacer></v-spacer>
 
       <v-toolbar-items>
         <v-btn
           text
         >({{this.isLoggedIn ? ("You have " + this.myReputationPts + " Rep points") : "Log in to get Rep points"}})</v-btn>
-      </v-toolbar-items>
-    </v-toolbar>
+        </v-toolbar-items>
+      </v-toolbar>
 
     <button @click="logInAndOut">{{this.isLoggedIn ? "Log Out" : "Log In"}}</button>
 
-    <v-toolbar-side-icon class="hidden-md-and-up" />
-
-    <v-container mx-auto py-0>
-      <v-layout></v-layout>
-    </v-container>
   </v-app-bar>
 </template>
 
