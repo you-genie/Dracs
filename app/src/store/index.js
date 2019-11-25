@@ -118,6 +118,10 @@ export default new Vuex.Store({
     },
     changeLoginState(state, payload) {
       state.isLoggedIn = payload
+      
+      if (payload == false) {
+      state.my_questions = {}
+      }
     },
     updateReputationPts(state, payload) {
       state.myReputationPts = payload
