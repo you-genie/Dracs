@@ -1,6 +1,5 @@
 <template>
   <v-card 
-    height="150"
     outlined 
     @click='route'
     class="ma-3">
@@ -9,7 +8,7 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-tile-title>{{ title }}</v-list-tile-title>
-          <v-list-item-title><small><b>{{majorTags[user.major]}}</b> dept. student in semester {{user.currentSemester}} asks this</small></v-list-item-title>
+          <v-list-item-title><small><b>{{majorTags[user.major]}}</b> dept. student in semester {{user.currentSemester}} asked this</small></v-list-item-title>
           <v-list-item-subtitle>
             <v-chip x-small label class="ma-1"
               v-for="(area, index) in user.interestedArea"
@@ -18,8 +17,8 @@
         </v-list-item-content>
       </v-list-item>
     </v-list>
-    <v-card-text>
-      <span class="d-inline-block text-truncate" style="max-width:300px">
+    <v-card-text style="padding-top:0px;">
+      <span class="d-inline-block">
         {{body}}
       </span>
     </v-card-text>
