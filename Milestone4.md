@@ -89,9 +89,15 @@ Wow! Related questions are here! You can click one of them to see details.
  * Firestore
 
 ## 6. Individual Reflections
-### Genne
- - 
-
+### Yujin
+- Main Contribution  
+FrontEnd main engineer [draggable answer board, question board, question posting actions, search actions]  
+Searching logic using user queries and search options, extended from Jaeryoung's user-similarity logic.
+- Difficulties  
+Implementing draggable actions. Masking events each other are difficult to unwrap.
+Designing the page. We received comments on 'don't know what to do on answer page', so the dragging actions of answer page should be easily known to users.  
+- Useful skill learned  
+Designing with user events
 
 ### SangHou
  - 
