@@ -57,7 +57,20 @@ This makes you get a finished coursework table, as well as help other people who
 
 ![image 7](https://github.com/krista2811/CS473/blob/master/images/image7.png)
 ### Step 8
-검색 기능
+
+Now let's search for questions. It would be useful when you want to see already-made coursework that is similar to you as well as when you want to volunteer to recommend courses for other students. 
+
+Click the search bar and write some keywords. You can also provide a major and interests, too. Then press search.
+
+![image 8](https://github.com/krista2811/CS473/blob/master/images/image8.png)
+
+Wow! Related questions are here! You can click one of them to see details.
+
+> NOTE: It may **take a few seconds** to show the result.
+
+> NOTE: The related-questions algorithm takes additional information you provided when sign-up (e.g., your current semester) to judge the order. If you are not logged in, it regards you as a freshman.
+
+![image 9](https://github.com/krista2811/CS473/blob/master/images/image9.png)
 
 
 ## 3. URL of your prototype
