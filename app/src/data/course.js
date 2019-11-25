@@ -30,13 +30,13 @@ export default {
             "votes": 0
         },
         {
-            "code": "CS222",
+            "code": "CS211",
             "enName": "Digital System and Lab.",
             "koName": "디지탈시스템 및 실험",
             "votes": 0
         },
         {
-            "code": "CS222",
+            "code": "CS220",
             "enName": "Programming Principles",
             "koName": "프로그래밍의 이해",
             "votes": 0
