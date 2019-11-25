@@ -9,7 +9,7 @@
       dense>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title><b>{{majorTags[questioner.major]}}</b> dept. student in semester {{questioner.currentSemester}} asks this</v-list-item-title>
+          <v-list-item-title><b>{{majorTags[questioner.major]}}</b> dept. student in semester {{questioner.currentSemester}} asked this</v-list-item-title>
           <v-list-item-subtitle>
             <small>I am interested in:  </small>
             <v-chip x-small label class="ma-1"
