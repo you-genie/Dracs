@@ -24,7 +24,7 @@
       </v-list-item>
     </v-list>
     <v-card-text>
-      <span class="d-inline-block text-truncate" style="max-width:300px">
+      <span class="d-inline-block">
         {{questionInfo.body}}
       </span>
     </v-card-text>
