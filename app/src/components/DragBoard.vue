@@ -135,7 +135,7 @@
                     delete this.semesters[semesterId].courses[courseId].votes.down[this.user.userID]              
                 }
                 store.dispatch('updateQuestion',[this.questionId, this.courses, this.semesters]);
-                store.dispatch('fetchQuestion')
+                // store.dispatch('fetchQuestion')
             },
     reputationUpdate: function(questionID, code, year, isSpring) {
       db.collection("votes")

@@ -60,7 +60,7 @@
                 return this.courses[this.index];
             },
             isMine () {
-                const isUp = this.votes.up.hasOwnProperty(this.user.userID)
+                const isUp = this.votes.up.hasOwnProperty(this.user.userID) && Object.keys(this.votes.up).length == 0
                 const isDown = Object.keys(this.votes.down).length == 0
                 const isHmm = Object.keys(this.votes.hmm).length == 0
                 return isUp && isDown && isHmm
