@@ -12,15 +12,13 @@
           <v-list-item-title><b>{{majorTags[questioner.major]}}</b> dept. student in semester {{questioner.currentSemester}} asks this</v-list-item-title>
           <v-list-item-subtitle>
             <small>I am interested in:  </small>
-            <v-chip x-small label class="ma-1"
-              v-for="(area, index) in questioner.interestedArea"
-              :key="index">{{area}}</v-chip>
+            <v-chip x-small label class="ma-1">{{questioner.interestedArea}}</v-chip>
           </v-list-item-subtitle>
           <v-list-item-subtitle>
             <small> I took these classes: </small>
             <v-chip x-small color="green lighten-3" label class="ma-1"
-              v-for="(course, index) in questioner.coursesTaken"
-              :key="index">{{course}}</v-chip>
+              v-for="(course, index) in questioner.certificates"
+              :key="index">{{courses[course]}}</v-chip>
           </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -48,7 +46,7 @@
       questionId: String,
     },
     computed: {
-      ...mapState(['majorTags', 'users', 'questions']),
+      ...mapState(['majorTags', 'users', 'questions', 'courses']),
       questionInfo () {
         return this.questions[this.questionId]
       },

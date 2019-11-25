@@ -17,8 +17,8 @@
           <v-list-item-subtitle>
             <small> I took these classes: </small>
             <v-chip x-small color="green lighten-3" label class="ma-1"
-              v-for="(course, index) in user.coursesTaken"
-              :key="index">{{course}}</v-chip>
+              v-for="(course, index) in user.certificates"
+              :key="index">{{courses[course].code}}</v-chip>
           </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -34,7 +34,6 @@
 <script>
  import {
     mapState,
-    // mapGetters
   } from 'vuex'
 
   export default {
@@ -46,12 +45,9 @@
       questionId: String
     },
     computed: {
-      ...mapState(['majorTags', 'user', 'users', 'my_questions']),
+      ...mapState(['majorTags', 'user', 'users', 'courses', 'my_questions']),
       questionInfo () {
         return this.my_questions[this.questionId]
-      },
-      questioner () {
-        return this.users[this.questionInfo.userID]
       }
     }
   }

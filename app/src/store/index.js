@@ -75,6 +75,21 @@ export default new Vuex.Store({
     major_name: (state, id) => {
       return state.majorTags[id]
     },
+    courseNames: (state) => {
+      var names = []
+      state.courses.forEach(course => {
+        names.push(course.code)
+      })
+
+      return names
+    },
+    longCourseNames: (state) => {
+      var names = []
+      state.courses.forEach((course, index) => {
+        names.push({text: "["+course.code + "] " + course.enName + ", " + course.koName, value:index})
+      }) 
+      return names     
+    },
     majorNames: (state) => {
       return Object.values(state.majorTags)
     },
@@ -267,6 +282,28 @@ export default new Vuex.Store({
     },
     gainReputationPts(context, payload) {
         context.commit('increaseReputationPts', payload)
+    },
+    searchData (context, payload) {
+      //calculate for both user and other payloads
+      const currentUser = context.state.user
+      db.collection('users').orderBy("userID", "asc").get().then(snapshot => {
+          snapshot.forEach(doc => {
+              let user = doc.data()
+                  // push [userID, fitScore] to list userIDandFit
+              userIDandFit.push([user.userID, Math.pow(Math.abs(currentSemester - user.currentSemester), 1.4) * -1 +
+                  (currentUser.major == user.major || payload.major == user.major ? 4 : 0) + (minor == user.minor && user.minor != -1 ? 3 : 0) +
+                  (doubleMajor == user.doubleMajor && user.doubleMajor != -1 ? 4 : 0) +
+                  (user.reputationPts > 30 ? 3 : user.reputationPts / 10) +
+                  ((interestedArea == user.interestedArea) == true ? 6 : 0)
+              ])
+          });
+      }).then(function() {
+          // sort so that highest fit comes first
+          userIDandFit = userIDandFit.sort(function(a, b) {
+              return -a[1] + b[1];
+          }); // commit this to fillFitList
+          context.commit('fillFitList', userIDandFit)
+      })
     },
     getSearchData(context, payload) {
         let currentSemester = payload[0]

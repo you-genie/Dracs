@@ -34,6 +34,7 @@
               </v-col>
               <v-col cols="6">
                 <v-select
+                  dense
                   :items="semesters"
                   suffix="semesters"
                   v-model="currentSemester"
@@ -49,6 +50,7 @@
               </v-col>
               <v-col cols="3">
                 <v-select
+                  dense
                   :items="majorNames"
                   v-model="major"
                   label="major"
@@ -61,6 +63,7 @@
               </v-col>
               <v-col cols="3">
                 <v-select
+                  dense
                   :items="subMajorNames"
                   v-model="doubleMajor"
                   label="double major"
@@ -73,6 +76,7 @@
               </v-col>
               <v-col cols="3">
                 <v-select
+                  dense
                   :items="subMajorNames"
                   v-model="minor"
                   label="minor"
@@ -85,12 +89,37 @@
               </v-col>
               <v-col cols="3">
                 <v-select
+                  dense
                   :items="interestedAreas"
                   v-model="interestedArea"
                   label="e.g. AI"
                   persistent-hint
                   hint="Undecided if you don't have any"
                 ></v-select>
+              </v-col>
+              <v-col cols="3">
+                <v-subheader>Certificates</v-subheader>
+              </v-col>
+              <v-col cols="9" sm="9">
+                <v-select
+                  :menu-props="{ maxHeight: '400' }"
+                  :items="longCourseNames"
+                  item-text="text"
+                  item-vaue="value"
+                  v-model="certificates"
+                  multiple
+                  label="e.g. CS101, CS109"
+                >
+                <template v-slot:selection="{ item, index }">
+                    <v-chip v-if="index < 6">
+                      <span>{{ courses[item.value].code }}</span>
+                    </v-chip>
+                    <span
+                      v-if="index === 5"
+                      class="grey--text caption"
+                    >(+{{ certificates.length - 5 }} others)</span>
+                  </template>
+                </v-select>
               </v-col>
             </v-row>
           </v-container>
@@ -121,12 +150,13 @@ export default {
       minor: "",
       doubleMajor: "",
       interestedArea: "",
+      certificates: [],
       semesters: ["1", "2", "3", "4", "5", "6", "7", "8", "9+"],
     };
   },
   computed: {
-    ...mapState(['majorTags', 'interestedAreas']),
-    ...mapGetters(['majorNames', 'subMajorNames'])
+    ...mapState(['majorTags', 'interestedAreas', 'courses']),
+    ...mapGetters(['majorNames', 'subMajorNames', 'longCourseNames'])
   },
   methods: {
     processSignUp: function() {
@@ -202,7 +232,7 @@ export default {
       }
 
       if (this.interestedArea == "None") {
-        this.interestedArea = "";
+        this.interestedArea = "Not decided yet!";
       }
 
       firebase
@@ -217,6 +247,7 @@ export default {
               doubleMajor: this.doubleMajor,
               interestedArea: this.interestedArea,
               reputationPts: 0,
+              certificates: this.certificates,
               userID: firebase.auth().currentUser.uid
             };
             (user)

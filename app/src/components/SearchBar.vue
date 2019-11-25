@@ -51,7 +51,7 @@
         <v-container fluid>
           <v-radio-group v-model="major" row>
             <v-radio 
-              v-for="(major, index) in major_list"
+              v-for="(major, index) in majorNames"
               v-bind:key="index"
               :label="major"
               color="red"
@@ -62,7 +62,7 @@
         <v-row class="px-4">
           <v-checkbox 
             class="ma-3"
-            v-for="(course, index) in courses"
+            v-for="(course, index) in courseNames"
             v-bind:key="index"
             v-model="certificates"
             :label="course"
@@ -72,7 +72,7 @@
         <v-row class="px-4">
           <v-checkbox 
             class="ma-3"
-            v-for="(topic, index) in premade_interests"
+            v-for="(topic, index) in interestedAreas"
             v-bind:key="index"
             v-model="interests"
             :label="topic"
@@ -101,7 +101,7 @@
 // import banner, search-card(containing search query and selection cards, question-board(with question-cards(component)) component. Fill in banner plz.
 
 import {
-  mapActions
+  mapActions, mapState, mapGetters
 } from 'vuex'
 
 export default {
@@ -115,13 +115,13 @@ export default {
     interests: [],
     courses: ["CS101", "CS201", "CS520", "CS489", "CS370", "CS950", "CS333", "CS444", "CS342"],
     query: "",
-    premade_interests: ["internship", "AI", "Algorithm", "Graphics"],
-    major_list: ['Major CS', 'minor CS', 'Double Major'],
-    major: "Major CS",
+    major: "CS",
     queries: [],
     total_items: [],
   }),
   computed: {
+    ...mapGetters(['majorNames', 'courseNames']),
+    ...mapState(['majorTags', 'interestedAreas']),
     academics () {
       var ret = []
         // ret = ret.concat(this.queries)
@@ -149,7 +149,13 @@ export default {
     ...mapActions(['goToPost']),
     clickSearch() {
       this.menu = false
-      this.$emit('search_click', this.all_queries)
+      const all_queries = {
+        major: this.major,
+        query: this.queries,
+        certificates: this.certificates,
+        interests: this.interests
+      }
+      this.$emit('search_click', all_queries)
     } 
   }
 }
