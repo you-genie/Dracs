@@ -40,25 +40,27 @@
 
       db.collection("users").get().then(snapshot => {
         let users = {};
-        let count = 0
+        // let count = 0
         snapshot.forEach(doc => {
-          users[count] = doc.data();
-          count++;
+          users[doc.id] = doc.data();
+          // count++;
         })
         store.dispatch('usersAppend', users);
       });
 
       db.collection('questions').get().then(snapshot => {
-        let count = 1;
+        // let count = 1;
         snapshot.forEach(doc => {
           if (doc.data().semesters) {
             let question = doc.data();
             // console.log(userID);
             if(question.userID === userID) {
-              myquestions[count] = question;
+              myquestions[doc.id] = question;
+            } else {
+              questions[doc.id] = question;
+
             }
-            questions[count] = question;
-            count ++;
+            // count ++;
           }
         });
         store.dispatch('dbQuestionRead',questions);

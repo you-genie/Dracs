@@ -20,7 +20,7 @@
 // this is page for search.
 // import banner, search-card(containing search query and selection cards, question-board(with question-cards(component)) component. Fill in banner plz.
   import {
-    mapState, 
+    mapState, mapActions 
     // mapGetters
   } from 'vuex'
   export default {
@@ -30,6 +30,9 @@
         QuestionBoard: () => import('@/components/QuestionBoard'),
         MyBoard: () => import('@/components/MyQuestionBoard'),
         ...mapState(['users', 'user']),
+      },
+      mounted () {
+        this.fetchQuestion();
       },
       data: () => ({
         my_questions: [
@@ -47,6 +50,9 @@
         question_data(n) {
           return n == 0 ? this.questions : this.my_questions
         }
+      },
+      methods: {
+        ...mapActions(['fetchQuestion'])
       }
     }
 </script>

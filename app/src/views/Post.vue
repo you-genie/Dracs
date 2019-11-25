@@ -58,8 +58,8 @@
       methods: {
         ...mapActions(['goToHome']),
         post () {
-          if (this.form) {
-            const question = {
+          if (this.form && this.title != "" && this.body != "") {
+            var question = {
               title: this.title,
               body: this.body,
               userID: this.user.userID,
@@ -70,9 +70,8 @@
               ],
               courses: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
             }
-
-            this.$store.commit('addMyQuestion', {question: question}) 
-            this.goToHome();
+            this.$emit('wow', {question: question})
+            this.$store.dispatch('addMyQuestion', {question: question}) 
           }
           
         }

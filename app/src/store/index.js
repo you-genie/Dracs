@@ -25,47 +25,6 @@ export default new Vuex.Store({
     user: {
     },
     users: {
-      // "2": {
-      //   reputationPts: 10,
-      //   currentSemester: 2,
-      //   major: "-1",
-      //   doubleMajor: "-1",
-      //   minor: "-1",
-      //   coursesTaken: [
-      //     "101,2019,S"
-      //   ],
-      //   interestedArea: [
-      //     "Internship"
-      //   ]
-      // },
-      // "3": {
-      //   reputationPts: 109,
-      //   currentSemester: 7,
-      //   major: "0",
-      //   doubleMajor: "2",
-      //   minor: "-1",
-      //   coursesTaken: [
-      //     "101,2015,S", "109,2015,S",
-      //     "210,2016,S", "230,2016,S", "260,2016,F",
-      //     "320,2016,F", "360,2016,F"
-      //   ],
-      //   interestedArea: [
-      //     "Graphics", "Computer Vision", "AI"
-      //   ]
-      // },
-      // "4": {
-      //   reputationPts: 10,
-      //   currentSemester: 2,
-      //   major: "-1",
-      //   doubleMajor: "-1",
-      //   minor: "-1",
-      //   coursesTaken: [
-      //     "101,2019,S", "109,2019,S"
-      //   ],
-      //   interestedArea: [
-      //     "Major Selection"
-      //   ]
-      // }
     },
     questions: questions.questions,
     my_questions: {}
@@ -85,14 +44,6 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    addMyQuestion: function (state, payload) {
-      const length = Object.keys(state.questions).length + 1
-      const new_key = length + ""
-      state.my_questions[new_key] = (payload.question)
-      state.questions[new_key] = (payload.question)
-      db.collection('questions').doc(new_key).set(payload.question);
-
-    },
     fillFitList(state, payload) {
       let temp = []
       for (var i = 0, len = payload.length; i < len; i++) {
@@ -124,6 +75,12 @@ export default new Vuex.Store({
     },
     dbDataLoad(state, payload = null) {
       state.questions = payload;
+    },
+    setMyQuestion(state, payload) {
+      state.my_questions = payload;
+    },
+    setQuestion(state, payload) {
+      state.questions = payload
     },
     UPDATEQUESTION(state, payload) {
       state.questions[payload[0]].courses = payload[1];
@@ -182,6 +139,40 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    addMyQuestion: function (context, payload) {
+      // context.state.my_questions[new_key] = (payload.question)
+      // context.state.questions[new_key] = (payload.question)
+      db.collection('questions').add(payload.question).then((doc) => {
+        console.log(doc.id)
+        context.commit('fetchQuestion')
+        context.dispatch('goToHome')
+      });
+    },
+    fetchQuestion(context) {
+
+      const userID = context.state.user.userID
+      console.log(userID)
+      db.collection('questions').get().then(snapshot => {
+        // let count = 1;
+        let myquestions = {}
+        let questions = {}
+        snapshot.forEach(doc => {
+          if (doc.data().semesters) {
+            let question = doc.data();
+            console.log(doc.data());
+            if(question.userID === userID) {
+              myquestions[doc.id] = question;
+            } else {
+              questions[doc.id] = question;
+            }
+            // count ++;
+          }
+        });
+        context.commit('setQuestion',questions);
+        context.commit('setMyQuestion', myquestions);
+        this.isDataGets = true;
+      })
+    },
     usersAppend (context, payload) {
       context.commit('USERAPPEND', payload);
     },

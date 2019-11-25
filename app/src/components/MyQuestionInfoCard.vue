@@ -12,9 +12,7 @@
           <v-list-item-title>I asked this</v-list-item-title>
           <v-list-item-subtitle>
             <small>I am interested in:  </small>
-            <v-chip x-small label class="ma-1"
-              v-for="(area, index) in user.interestedArea"
-              :key="index">{{area}}</v-chip>
+            <v-chip x-small label class="ma-1">{{user.interestedArea}}</v-chip>
           </v-list-item-subtitle>
           <v-list-item-subtitle>
             <small> I took these classes: </small>
