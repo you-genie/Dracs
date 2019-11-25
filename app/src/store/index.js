@@ -114,7 +114,6 @@ export default new Vuex.Store({
       for (var i = 0, len = payload.length; i < len; i++) {
         temp.push(payload[i][0])
       }
-      console.log(temp)
             // for each userID in temp, get all the question posed by that user and push it to fitArticleList
       // note that doc.id is saved (because new questions don't have a questionID field)
       for (var j = 0, len2 = temp.length; j < len2; j++) {
@@ -253,6 +252,41 @@ export default new Vuex.Store({
         context.commit('setMyQuestion', myquestions);
         this.isDataGets = true;
       })
+    },
+    fetchUserInfo(context) {
+      if (firebase.auth().currentUser) {
+        let userID = firebase.auth().currentUser.uid
+        db.collection("users")
+          .where("userID", "==", userID).get()
+          .then(snapshot => {
+            snapshot.forEach(data => {
+              let user = data.data();
+              context.dispatch('setUser', user);
+              context.dispatch('getSearchData', 
+                [context.state.user.currentSemester, 
+                context.state.user.major, 
+                context.state.user.doubleMajor, 
+                context.state.user.minor, 
+                context.state.user.interestedArea])
+            });
+        });
+      }
+    },
+    fetchAll(context) {
+      context.dispatch('fetchUserInfo');
+      context.dispatch('fetchUsers');
+      context.dispatch('fetchQuestion');
+    },
+    fetchUsers(context) {
+      db.collection("users").get().then(snapshot => {
+        let users = {};
+        // let count = 0
+        snapshot.forEach(doc => {
+          users[doc.data().userID] = doc.data();
+          // count++;
+        })
+        context.dispatch('usersAppend', users);
+      });
     },
     usersAppend(context, payload) {
         context.commit('USERAPPEND', payload);

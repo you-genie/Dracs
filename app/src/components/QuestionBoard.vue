@@ -30,7 +30,9 @@
         questionInfos() {
           let infos = {}
           this.questionIds.forEach(questionId => {
-            infos[questionId] = this.questions[questionId];
+            if (this.questions[questionId]) {
+              infos[questionId] = this.questions[questionId];
+            }
           })
           return infos
         }

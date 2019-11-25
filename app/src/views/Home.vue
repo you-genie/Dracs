@@ -31,6 +31,9 @@
         QuestionBoard: () => import('@/components/QuestionBoard'),
         MyBoard: () => import('@/components/MyQuestionBoard'),
       },
+      beforeMount() {
+        this.fetchAll();
+      },
       mounted () {
         this.fetchQuestion();
       },
@@ -43,7 +46,7 @@
         }
       },
       methods: {
-        ...mapActions(['fetchQuestion'])
+        ...mapActions(['fetchQuestion', 'fetchAll'])
       }
     }
 </script>

@@ -46,8 +46,10 @@ export default {
                             store.commit('updateReputationPts', doc.data().reputationPts);
                           });
                         });
-        
-                    this.$router.replace('/')
+                    store.dispatch('fetchAll');
+                    setTimeout(() => {
+                        this.$router.replace('/')
+                    }, 1000)
                 },
                 (error) => {
 

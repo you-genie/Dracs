@@ -253,8 +253,10 @@ export default {
             (user)
             db.collection("users").doc().set(data);
             store.commit('changeLoginState', true)
-            this.$router.replace("/");
-          },
+            store.dispatch('fetchAll');
+            setTimeout(() => {
+                this.$router.replace('/')
+            }, 1000)          },
           error => {
             alert(error);
           }
