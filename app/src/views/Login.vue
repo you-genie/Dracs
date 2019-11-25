@@ -1,11 +1,17 @@
 <template>
-    <div class="login">
-        <p>Welcome back to DragCS!</p>
-        <input type="text" v-model="email" placeholder="E-mail"> <br />
-        <input type="password" v-model="password" placeholder="Password"> <br />
-        <button @click="login">Log-in</button>
-        <p>What? Didn't signed up to DragCS yet? Let's create one <router-link to='/signup'> here! </router-link></p>
-    </div>
+    <v-row justify="center">
+        <v-card class="login"  flat>
+            <v-card-title>Welcome back to DragCS!</v-card-title>
+            <v-card-text>
+                <v-text-field type="text" v-model="email" label="E-mail" ></v-text-field>
+                <v-text-field type="password" v-model="password" label="Password"></v-text-field>
+                <p>What? Didn't signed up to DragCS yet? Let's create one <router-link to='/signup'> here! </router-link></p>
+            </v-card-text>
+            <v-card-actions>
+               <v-btn @click="login" small text>Log-in</v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-row>
 </template>
 
 <script>

@@ -1,78 +1,106 @@
 <template>
   <div class="signup">
-    <p>Welcome to DragCS!</p>E-mail
-    <input type="text" v-model="email" placeholder="E-mail" />
-    <br />Password
-    <input type="password" v-model="password" placeholder="Password" />
-    <br />How many semesters did you take, including this semester?
-    <select
-      v-model="currentSemester"
-      style="color:#000000; background-color:#FFFFFF; -webkit-appearance: menulist;"
-    >
-      <option disabled>Please choose from below.</option>
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
-      <option>6</option>
-      <option>7</option>
-      <option>8</option>
-      <option>9+</option>
-    </select>
-    <br />What is your major?
-    <select
-      v-model="major"
-      style="color:#000000; background-color:#FFFFFF; -webkit-appearance: menulist;"
-    >
-      <option disabled>Please choose from below.</option>
-      <option>Undecided</option>
-      <option>CS</option>
-      <option>EE</option>
-      <option>MAS</option>
-      <option>Others</option>
-    </select>
-    <br />What is your dobule major, if any?
-    <select
-      v-model="doubleMajor"
-      style="color:#000000; background-color:#FFFFFF; -webkit-appearance: menulist;"
-    >
-      <option disabled>Please choose from below.</option>
-      <option>None</option>
-      <option>CS</option>
-      <option>EE</option>
-      <option>MAS</option>
-      <option>Others</option>
-    </select>
-    <br />What is your minor, if any?
-    <select
-      v-model="minor"
-      style="color:#000000; background-color:#FFFFFF; -webkit-appearance: menulist;"
-    >
-      <option disabled>Please choose from below.</option>
-      <option>None</option>
-      <option>CS</option>
-      <option>EE</option>
-      <option>MAS</option>
-      <option>Others</option>
-    </select>
-    <br />What is your interested area in CS, if any?
-    <select
-      v-model="interestedArea"
-      style="color:#000000; background-color:#FFFFFF; -webkit-appearance: menulist;"
-    >
-      <option disabled>Please choose from below.</option>
-      <option>None</option>
-      <option>CS Theory</option>
-      <option>System Network</option>
-      <option>Software Engineering</option>
-      <option>Social Computing</option>
-      <option>Visual Comptuing</option>
-      <option>HCI</option>
-      <option>AI</option>
-    </select>
-    <br />
-    <v-btn @click="processSignUp">Sign Up!</v-btn>
+    <v-row dense justify="space-around" align="center">
+      <v-card outlined width="80%">
+        <v-card-title primary-title>
+          Welcome to DragCS!
+        </v-card-title>
+        <v-card-text>
+          <v-container dense fluid>
+            <v-row dense align="center">
+              <v-col cols="4">
+                <v-subheader>E-mail</v-subheader>
+              </v-col>
+              <v-col cols="8">
+                <v-text-field label="E-mail" v-model="email" ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row dense align="center">
+              <v-col cols="4">
+                <v-subheader>password</v-subheader>
+              </v-col>
+              <v-col cols="8">
+                <v-text-field
+                  v-model="password"
+                  type="password"
+                  name="password"
+                  label="password"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row dense align="center">
+              <v-col cols="6">
+                <v-subheader>How many semesters did you take?</v-subheader>
+              </v-col>
+              <v-col cols="6">
+                <v-select
+                  :items="semesters"
+                  suffix="semesters"
+                  v-model="currentSemester"
+                  label="e.g. 8th"
+                  persistent-hint
+                  hint="Including this semester"
+                ></v-select>
+              </v-col>
+            </v-row>
+            <v-row dense align="center">
+              <v-col cols="3">
+                <v-subheader>Major</v-subheader>
+              </v-col>
+              <v-col cols="3">
+                <v-select
+                  :items="majorNames"
+                  v-model="major"
+                  label="major"
+                  persistent-hint
+                  hint="주전공"
+                ></v-select>
+              </v-col>
+              <v-col cols="3">
+                <v-subheader>Double major</v-subheader>
+              </v-col>
+              <v-col cols="3">
+                <v-select
+                  :items="subMajorNames"
+                  v-model="doubleMajor"
+                  label="double major"
+                  persistent-hint
+                  hint="복수 전공"
+                ></v-select>
+              </v-col>
+              <v-col cols="3">
+                <v-subheader>Minor</v-subheader>
+              </v-col>
+              <v-col cols="3">
+                <v-select
+                  :items="subMajorNames"
+                  v-model="minor"
+                  label="minor"
+                  persistent-hint
+                  hint="부전공"
+                ></v-select>
+              </v-col>
+              <v-col cols="3">
+                <v-subheader>Interested area in CS</v-subheader>
+              </v-col>
+              <v-col cols="3">
+                <v-select
+                  :items="interestedAreas"
+                  v-model="interestedArea"
+                  label="e.g. AI"
+                  persistent-hint
+                  hint="Undecided if you don't have any"
+                ></v-select>
+              </v-col>
+            </v-row>
+          </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn text @click="processSignUp">Sign Up!</v-btn>
+          </v-card-actions>
+      </v-card>
+    </v-row>
   </div>
 </template>
 
@@ -80,6 +108,7 @@
 import firebase from "firebase";
 import { db } from "../main";
 import store from '../store'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: "signUp",
@@ -91,8 +120,13 @@ export default {
       major: "",
       minor: "",
       doubleMajor: "",
-      interestedArea: ""
+      interestedArea: "",
+      semesters: ["1", "2", "3", "4", "5", "6", "7", "8", "9+"],
     };
+  },
+  computed: {
+    ...mapState(['majorTags', 'interestedAreas']),
+    ...mapGetters(['majorNames', 'subMajorNames'])
   },
   methods: {
     processSignUp: function() {

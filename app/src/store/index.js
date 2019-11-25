@@ -15,12 +15,20 @@ export default new Vuex.Store({
       fitArticleList: [],
       isLoggedIn: false,
       majorTags: {
-          "-1": "Freshman",
+          "-1": "Undecided",
           "0": "CS",
           "1": "EE",
           "2": "MAS",
           "3": "Others"
       },
+      subMajorTags: {
+          "-1": "None",
+          "0": "CS",
+          "1": "EE",
+          "2": "MAS",
+          "3": "Others"
+      },
+      interestedAreas: ["None", "CS Theory", "System Network", "Software Engineering", "Social Computing", "Visual Computing", "HCI", "AI"],
       courses: courses.courses,
       user: {},
       users: {
@@ -66,6 +74,12 @@ export default new Vuex.Store({
   getters: {
     major_name: (state, id) => {
       return state.majorTags[id]
+    },
+    majorNames: (state) => {
+      return Object.values(state.majorTags)
+    },
+    subMajorNames: (state) => {
+      return Object.values(state.subMajorTags)
     },
     courseInfo: (state, index) => {
       return state.courses[index]

@@ -12,10 +12,10 @@
         <v-btn
           text
         >({{this.isLoggedIn ? ("You have " + this.myReputationPts + " Rep points") : "Log in to get Rep points"}})</v-btn>
+        <v-btn text @click="logInAndOut">{{this.isLoggedIn ? "Log Out" : "Log In"}}</v-btn>
         </v-toolbar-items>
       </v-toolbar>
 
-    <button @click="logInAndOut">{{this.isLoggedIn ? "Log Out" : "Log In"}}</button>
 
   </v-app-bar>
 </template>

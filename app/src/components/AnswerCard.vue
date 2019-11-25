@@ -45,7 +45,7 @@
 
     }),
     props: {
-      questionId: String
+      questionId: String,
     },
     computed: {
       ...mapState(['majorTags', 'users', 'questions']),
@@ -53,7 +53,13 @@
         return this.questions[this.questionId]
       },
       questioner () {
-        return this.users[this.questionInfo.userID]
+        const questionerId = this.questions[this.questionId].userID
+        for (var key in this.users) {
+          if (this.users[key].userID === questionerId) {
+            return this.users[key]
+          }
+        }
+        return undefined 
       }
     }
   }

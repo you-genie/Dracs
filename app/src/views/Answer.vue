@@ -10,14 +10,16 @@
 <script>
 // this is page for answer.
 // import banner, answer-card, answer-board component. Fill in banner plz.
-    export default {
-        name: 'Answer',
-        props: {
-          questionId: String
-        },
-        components: {
-            AnswerBoard: () => import('@/components/DragBoard'),
-            AnswerCard: () => import('@/components/AnswerCard')
-        }
+  export default {
+      name: 'Answer',
+      props: {
+        questionId: String
+      },
+      computed: {
+      },
+      components: {
+          AnswerBoard: () => import('@/components/DragBoard'),
+          AnswerCard: () => import('@/components/AnswerCard')
+      }
     }
 </script>
