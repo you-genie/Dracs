@@ -36,7 +36,7 @@
             v-on:dragover="allowDrop"
             v-on:dragleave.prevent="leaveDrag"
             v-on:drop="drop">
-            <v-card-text><span>On Vote</span></v-card-text>
+            <v-card-text><span>On Vote - Drop here!</span></v-card-text>
             <v-container>
                 <div v-for="(course, index) in items" v-bind:key="index">
                     <select-chip 

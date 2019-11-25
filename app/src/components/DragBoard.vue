@@ -14,6 +14,7 @@
                     v-on:vote="vote"/>
             </v-row>
             <v-row justify="center">
+                <v-subheader>Drag me!</v-subheader>
                 <unselected-chip 
                     v-for="(course, index) in courses"
                     v-bind:key="index" class="text-center"
