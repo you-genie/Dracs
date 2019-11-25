@@ -12,23 +12,23 @@
                 :disabled="selectChip"
                 v-on="vote.on"
                 class="ma-2"
-                :color="selectChip? select_color: votes.up - votes.down >= 0?good_color:bad_color"
+                :color="selectChip? select_color: Object.keys(votes.up).length - Object.keys(votes.down).length >= 0?good_color:bad_color"
             >
                 {{courseData.code}}
-                <v-avatar right small size=10 color="white">{{votes.up - votes.down}}</v-avatar>
+                <v-avatar right small size=10 color="white">{{Object.keys(votes.up).length - Object.keys(votes.down).length}}</v-avatar>
             </v-chip>                    
         </template>
         <v-card
             max-width="300">
-            <vote-list v-if="!myChip"
+            <vote-list v-if="!isMine"
                 v-on:send-vote="sendVote"
                 v-on:reset="reset"
-                :default-up="votes.up"
-                :default-down="votes.down"
-                :default-hmm="votes.hmm"
+                :default-up="Object.keys(votes.up).length"
+                :default-down="Object.keys(votes.down).length"
+                :default-hmm="Object.keys(votes.hmm).length"
                 :en-name="courseData.enName"
                 :ko-name="courseData.koName"/>
-            <v-list v-if="myChip">
+            <v-list v-if="isMine">
                 <v-list-item
                     @click="undo">
                     <v-list-item-content>
@@ -55,9 +55,15 @@
             select_color: "grey"
         }),
         computed: {
-            ...mapState(['courses']),
+            ...mapState(['courses', 'user']),
             courseData () {
                 return this.courses[this.index];
+            },
+            isMine () {
+                const isUp = this.votes.up.hasOwnProperty(this.user.userID)
+                const isDown = Object.keys(this.votes.down).length == 0
+                const isHmm = Object.keys(this.votes.hmm).length == 0
+                return isUp && isDown && isHmm
             }
         },
         components: {
@@ -75,7 +81,7 @@
                 this.$emit('deselect', this.courseId)
             },
             sendVote: function(vote, prev) {
-                this.$emit('vote', this.courseId, vote, prev)
+                this.$emit('vote', this.courseId, vote)
             }
 
         }

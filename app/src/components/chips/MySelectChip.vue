@@ -11,10 +11,10 @@
                 small
                 v-on="vote.on"
                 class="ma-2"
-                :color="selectChip? select_color: votes.up - votes.down >= 0?good_color:bad_color"
+                :color="selectChip? select_color: Object.keys(votes.up).length - Object.keys(votes.down).length >= 0?good_color:bad_color"
             >
                 {{courseData.code}}
-                <v-avatar right small color="white">{{votes.up - votes.down}}</v-avatar>
+                <v-avatar right small color="white">{{Object.keys(votes.up).length - Object.keys(votes.down).length}}</v-avatar>
             </v-chip>                    
         </template>
         <v-card

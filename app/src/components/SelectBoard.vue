@@ -49,30 +49,11 @@
         methods: {
             deselectChip: function(semesterId, courseId) {
                 this.semesters[semesterId].courses[courseId].selected = false
-                store.dispatch('updateQuestion',[this.questionId, this.courses, this.semesters]);
+                store.dispatch('updateMyQuestion',[this.questionId, this.semesters]);
             },
             selectChip: function(semesterId, courseId) {
                 this.semesters[semesterId].courses[courseId].selected = true
-              store.dispatch('updateQuestion',[this.questionId, this.courses, this.semesters]);
-
-            },
-            vote: function(semesterId, courseId, voteState, prevVote) {
-                if (voteState === 'down') {
-                    this.semesters[semesterId].courses[courseId].votes.down += 1
-                } else if (voteState === 'up') {
-                    this.semesters[semesterId].courses[courseId].votes.up += 1
-                } else if (voteState === 'hmm') {
-                    this.semesters[semesterId].courses[courseId].votes.hmm += 1
-                }
-
-                if (prevVote === 'down') {
-                    this.semesters[semesterId].courses[courseId].votes.down -= 1
-                } else if (prevVote === 'up') {
-                    this.semesters[semesterId].courses[courseId].votes.up -= 1
-                } else if (prevVote === 'hmm') {
-                    this.semesters[semesterId].courses[courseId].votes.hmm -= 1
-                }
-              store.dispatch('updateQuestion',[this.questionId, this.courses, this.semesters]);
+              store.dispatch('updateMyQuestion',[this.questionId, this.semesters]);
             }
         }
     }

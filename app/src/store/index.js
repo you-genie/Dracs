@@ -126,6 +126,10 @@ export default new Vuex.Store({
     setQuestion(state, payload) {
       state.questions = payload
     },
+    UPDATE_MY_QUESTION(state, payload) {
+      state.my_questions[payload[0]].semesters = payload[1];
+      db.collection('questions').doc(payload[0]).update(state.my_questions[payload[0]])
+    },
     UPDATEQUESTION(state, payload) {
       state.questions[payload[0]].courses = payload[1];
       state.questions[payload[0]].semesters = payload[2];
@@ -225,6 +229,9 @@ export default new Vuex.Store({
     },
     updateQuestion(context, payload) {
         context.commit('UPDATEQUESTION', payload)
+    },
+    updateMyQuestion(context, payload) {
+      context.commit('UPDATE_MY_QUESTION', payload)
     },
     dbQuestionRead(context, payload) {
         context.commit('dbDataLoad', payload);

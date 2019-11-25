@@ -81,14 +81,17 @@
                         this.semesters[semesterId].courses[index].votes.up += 1
                         this.semesters[semesterId].courses[index].myChip = true
                     } else {
+                        const userID = this.user.userID
+                        const upObject = {}
+                        upObject[userID] = "1"
                         var item = {
                             index: itemId,
                             selected: false,
                             myChip: true,
                             votes: {
-                                up: 1,
-                                down: 0,
-                                hmm: 0
+                                up: upObject,
+                                down: {},
+                                hmm: {}
                             }
                         }
                         this.semesters[semesterId].courses.push(item);
@@ -102,9 +105,13 @@
                 store.dispatch('updateQuestion',[this.questionId, this.courses, this.semesters]);
             },
             deselectChip: function(semesterId, courseId) {
-                this.semesters[semesterId].courses[courseId].votes.up -= 1
+                delete this.semesters[semesterId].courses[courseId].votes.up[this.user.userID]
+
                 const targetCourse = this.semesters[semesterId].courses[courseId]
-                if (targetCourse.votes.up > 0 || targetCourse.votes.down > 0 || targetCourse.votes.hmm > 0 ) {
+                if (Object.keys(targetCourse.votes.up).length > 0 
+                    || Object.keys(targetCourse.votes.down).length > 0 
+                    || Object.keys(targetCourse.votes.hmm).length > 0 ) {
+                    console.log(targetCourse)
                     this.semesters[semesterId].courses[courseId].myChip = false
                 } else {
                     this.semesters[semesterId].courses.splice(courseId, 1)
@@ -113,23 +120,22 @@
                 this.courses.push(targetCourse.index)
               store.dispatch('updateQuestion',[this.questionId, this.courses, this.semesters]);
             },
-            vote: function(semesterId, courseId, voteState, prevVote) {
-              if (voteState === 'down') {
-                this.semesters[semesterId].courses[courseId].votes.down += 1
-              } else if (voteState === 'up') {
-                this.semesters[semesterId].courses[courseId].votes.up += 1
-              } else if (voteState === 'hmm') {
-                this.semesters[semesterId].courses[courseId].votes.hmm += 1
-              }
-
-              if (prevVote === 'down') {
-                this.semesters[semesterId].courses[courseId].votes.down -= 1
-              } else if (prevVote === 'up') {
-                this.semesters[semesterId].courses[courseId].votes.up -= 1
-              } else if (prevVote === 'hmm') {
-                this.semesters[semesterId].courses[courseId].votes.hmm -= 1
-              }
-              store.dispatch('updateQuestion',[this.questionId, this.courses, this.semesters]);
+            vote: function(semesterId, courseId, voteState) {
+                if (voteState === 'down') {
+                    this.semesters[semesterId].courses[courseId].votes.down[this.user.userID] = "1"
+                    delete this.semesters[semesterId].courses[courseId].votes.up[this.user.userID]
+                    delete this.semesters[semesterId].courses[courseId].votes.hmm[this.user.userID]
+                } else if (voteState === 'up') {
+                    this.semesters[semesterId].courses[courseId].votes.up[this.user.userID] = "1"
+                    delete this.semesters[semesterId].courses[courseId].votes.down[this.user.userID]
+                    delete this.semesters[semesterId].courses[courseId].votes.hmm[this.user.userID]              
+                } else if (voteState === 'hmm') {
+                    this.semesters[semesterId].courses[courseId].votes.hmm[this.user.userID] = "1"
+                    delete this.semesters[semesterId].courses[courseId].votes.up[this.user.userID]
+                    delete this.semesters[semesterId].courses[courseId].votes.down[this.user.userID]              
+                }
+                store.dispatch('updateQuestion',[this.questionId, this.courses, this.semesters]);
+                store.dispatch('fetchQuestion')
             },
     reputationUpdate: function(questionID, code, year, isSpring) {
       db.collection("votes")
