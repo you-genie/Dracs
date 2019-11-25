@@ -16,7 +16,7 @@
               ></v-text-field>
               <v-textarea
                 v-model="body"
-                autogrow
+                auto-grow
                 label="text"
                 required
                 hint="Write down what you want to ask specially."

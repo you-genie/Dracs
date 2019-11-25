@@ -7,10 +7,11 @@ import Post from '@/views/Post.vue'
 import Question from '@/views/Question.vue'
 import SignUp from '@/views/SignUp.vue'
 import Login from '@/views/Login'
+import * as firebase from 'firebase';
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
     mode: 'history',
     base: process.env.BASE_URL,
     routes: [{
@@ -33,7 +34,10 @@ export default new Router({
         {
             path: '/post/',
             name: 'post',
-            component: Post
+            component: Post,
+            meta: {
+                requiresLogIn: true
+            }
         },
         {
             path: '/question/:questionId',
@@ -53,3 +57,17 @@ export default new Router({
         },
     ]
 })
+
+
+router.beforeEach((to, from, next) => {
+    const user = firebase.auth().currentUser
+    const isRequiresLogIn = to.matched.some(record => record.meta.requiresLogIn)
+
+    if (isRequiresLogIn && !user) {
+        next('/login')
+    } else {
+        next()
+    }
+});
+
+export default router;

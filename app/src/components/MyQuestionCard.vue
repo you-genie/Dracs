@@ -1,6 +1,5 @@
 <template>
   <v-card 
-    height="120"
     outlined 
     @click='route'
     class="ma-3">
@@ -13,7 +12,7 @@
       </v-list-item>
     </v-list>
     <v-card-text>
-      <span class="d-inline-block text-truncate" style="max-width:300px">
+      <span class="d-inline-block">
         {{body}}
       </span>
     </v-card-text>
