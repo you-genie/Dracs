@@ -66,9 +66,9 @@ Click the search bar and write some keywords. You can also provide a major and i
 
 Wow! Related questions are here! You can click one of them to see details.
 
-> NOTE: It may takes a few seconds to show the result.
+> NOTE: It may **take a few seconds** to show the result.
 
-> NOTE: The related-questions algorithm takes additional information you provided when sign-up (e.g., your current semester) to judge the order.  
+> NOTE: The related-questions algorithm takes additional information you provided when sign-up (e.g., your current semester) to judge the order. If you are not logged in, it regards you as a freshman.
 
 ![image 9](https://github.com/krista2811/CS473/blob/master/images/image9.png)
 
