@@ -36,6 +36,7 @@ export default {
                         .get()
                         .then(snapshot => {
                           snapshot.forEach(doc => {
+                            store.dispatch('setUser', doc.data())
                             store.commit('updateReputationPts', doc.data().reputationPts);
                           });
                         });

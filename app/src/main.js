@@ -20,7 +20,7 @@ export const db = firebase.firestore()
 
 /* eslint-disable no-console */
 
-store.dispatch('getSearchData', [1, -1, -1, -1, "HCI"])
+store.dispatch('getSearchData', [4, -1, -1, -1, "HCI"])
     /* eslint-enable no-console */
 new Vue({
     vuetify,
