@@ -69,7 +69,8 @@ export default new Vuex.Store({
           // }
       },
       questions: questions.questions,
-      my_questions: {}
+      my_questions: {},
+      searchResQuestions: []
   },
   getters: {
     major_name: (state, id) => {
@@ -104,7 +105,7 @@ export default new Vuex.Store({
     },
     fitArticles: state => {
       return state.fitArticleList
-    }
+    },
   },
   mutations: {
     fillFitList(state, payload) {
@@ -113,7 +114,7 @@ export default new Vuex.Store({
       for (var i = 0, len = payload.length; i < len; i++) {
         temp.push(payload[i][0])
       }
-      state.fitArticleList = temp
+      console.log(temp)
             // for each userID in temp, get all the question posed by that user and push it to fitArticleList
       // note that doc.id is saved (because new questions don't have a questionID field)
       for (var j = 0, len2 = temp.length; j < len2; j++) {
@@ -213,6 +214,12 @@ export default new Vuex.Store({
     },
     USERAPPEND( state, payload) {
       state.users = payload;
+    },
+    setSearchResQuestions(state, payload) {
+      console.log(payload)
+      payload.forEach(obj => {
+        state.searchResQuestions.push(obj.id)
+      })
     }
   },
   actions: {
@@ -226,9 +233,6 @@ export default new Vuex.Store({
       });
     },
     fetchQuestion(context) {
-
-      const userID = context.state.user.userID
-      console.log(userID)
       db.collection('questions').get().then(snapshot => {
         // let count = 1;
         let myquestions = {}
@@ -237,7 +241,7 @@ export default new Vuex.Store({
           if (doc.data().semesters) {
             let question = doc.data();
             console.log(doc.data());
-            if(question.userID === userID) {
+            if(question.userID === firebase.auth().currentUser.uid) {
               myquestions[doc.id] = question;
             } else {
               questions[doc.id] = question;
@@ -277,33 +281,62 @@ export default new Vuex.Store({
     goToHome() {
         router.push({ name: 'home' })
     },
+    goToSearch(state, payload) {
+      router.push({name: 'search', params: {questionIdLists: payload}})
+    },
     goToQuestion(state, payload) {
         router.push({ name: 'question', params: { questionId: payload.questionId } })
     },
     gainReputationPts(context, payload) {
         context.commit('increaseReputationPts', payload)
     },
-    searchData (context, payload) {
-      //calculate for both user and other payloads
-      const currentUser = context.state.user
-      db.collection('users').orderBy("userID", "asc").get().then(snapshot => {
-          snapshot.forEach(doc => {
-              let user = doc.data()
-                  // push [userID, fitScore] to list userIDandFit
-              userIDandFit.push([user.userID, Math.pow(Math.abs(currentSemester - user.currentSemester), 1.4) * -1 +
-                  (currentUser.major == user.major || payload.major == user.major ? 4 : 0) + (minor == user.minor && user.minor != -1 ? 3 : 0) +
-                  (doubleMajor == user.doubleMajor && user.doubleMajor != -1 ? 4 : 0) +
-                  (user.reputationPts > 30 ? 3 : user.reputationPts / 10) +
-                  ((interestedArea == user.interestedArea) == true ? 6 : 0)
-              ])
-          });
-      }).then(function() {
-          // sort so that highest fit comes first
-          userIDandFit = userIDandFit.sort(function(a, b) {
-              return -a[1] + b[1];
-          }); // commit this to fillFitList
-          context.commit('fillFitList', userIDandFit)
-      })
+    searchQuestions (context, payload) {
+      //calculate for both user and other payloads]
+      var resData = [];
+      Object.keys(context.state.questions).forEach(questionId => {
+          let question = context.state.questions[questionId]
+          let point = 0
+          let interests = payload.interests
+          let payloadMajor = payload.major
+          let questionerID = question.userID
+          const currentUser = context.state.user
+
+          if (currentUser.userID != questionerID) {
+            payload.queries.forEach(query => {
+              if (question.title.includes(query)) {
+                point += 10
+              }
+              if (question.body.includes(query)) {
+                point += 12
+              }
+            })
+            let user = context.state.users[questionerID]
+            interests.forEach(interest => {
+              if (user.interestedArea == interest) {
+                point += 6
+              }
+            })
+            point += Math.abs(currentUser.currentSemester - user.currentSemester) * -1
+            point += (currentUser.major == user.major ? 3 : 0) 
+            point += payloadMajor == user.major ? 8 : 0
+            point += ((currentUser.minor == user.minor) && user.minor != -1 ? 2 : 0)
+            point += (payloadMajor == user.minor) && user.minor != -1 ? 3 : 0
+            point += ((currentUser.doubleMajor == user.doubleMajor || payloadMajor == user.doubleMajor) && user.doubleMajor != -1 ? 3 : 0) 
+            // point += (user.reputationPts > 30 ? 3 : user.reputationPts / 10) 
+
+            point += ((currentUser.interestedArea == user.interestedArea) ? 4 : 0);
+            resData.push({id: questionId, value: point})
+         }
+      });
+      resData = resData.sort(function(a, b) {
+        return -a.value + b.value;
+      });
+      setTimeout(() => {
+        context.commit('setSearchResQuestions', resData)
+        setTimeout(() => {
+          context.dispatch('goToSearch', new Date())
+        }, 3000)
+      }, 2000)
     },
     getSearchData(context, payload) {
         let currentSemester = payload[0]
@@ -316,13 +349,15 @@ export default new Vuex.Store({
         db.collection('users').orderBy("userID", "asc").get().then(snapshot => {
             snapshot.forEach(doc => {
                 let user = doc.data()
+                if (user.userID != firebase.auth().currentUser.uid) {
                     // push [userID, fitScore] to list userIDandFit
-                userIDandFit.push([user.userID, Math.pow(Math.abs(currentSemester - user.currentSemester), 1.4) * -1 +
-                    (major == user.major ? 4 : 0) + (minor == user.minor && user.minor != -1 ? 3 : 0) +
-                    (doubleMajor == user.doubleMajor && user.doubleMajor != -1 ? 4 : 0) +
-                    (user.reputationPts > 30 ? 3 : user.reputationPts / 10) +
-                    ((interestedArea == user.interestedArea) == true ? 6 : 0)
-                ])
+                  userIDandFit.push([user.userID, Math.pow(Math.abs(currentSemester - user.currentSemester), 1.4) * -1 +
+                      (major == user.major ? 4 : 0) + (minor == user.minor && user.minor != -1 ? 3 : 0) +
+                      (doubleMajor == user.doubleMajor && user.doubleMajor != -1 ? 4 : 0) +
+                      (user.reputationPts > 30 ? 3 : user.reputationPts / 10) +
+                      ((interestedArea == user.interestedArea) == true ? 6 : 0)
+                  ])
+                }
             });
         }).then(function() {
             // sort so that highest fit comes first

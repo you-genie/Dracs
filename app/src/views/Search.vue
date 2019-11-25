@@ -3,7 +3,8 @@
       <v-container>
         <search-bar />
         <v-row>
-          <question-board />
+          <question-board 
+            :questionIdLists="searchResQuestions"/>
         </v-row>
       </v-container> 
     </div>
@@ -13,22 +14,26 @@
 // this is page for search.
 // import banner, search-card(containing search query and selection cards, question-board(with question-cards(component)) component. Fill in banner plz.
   import {
-    mapState, 
+    mapState,mapActions 
     // mapGetters
   } from 'vuex'
   export default {
       name: 'Search',
       props: {
-
+      },
+      mounted() {
       },
       components: {
         SearchBar: () => import('@/components/SearchBar'),
         QuestionBoard: () => import('@/components/QuestionBoard'),
-        ...mapState(['users', 'user']),
       },
       data: () => ({
       }),
       computed: {
+        ...mapState(['users', 'user', 'searchResQuestions']),
+      },
+      methods: {
+        ...mapActions(['getSearchData'])
       }
     }
 </script>

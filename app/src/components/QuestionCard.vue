@@ -10,9 +10,7 @@
           <v-list-tile-title>{{ title }}</v-list-tile-title>
           <v-list-item-title><small><b>{{majorTags[user.major]}}</b> dept. student in semester {{user.currentSemester}} asked this</small></v-list-item-title>
           <v-list-item-subtitle>
-            <v-chip x-small label class="ma-1"
-              v-for="(area, index) in user.interestedArea"
-              :key="index">{{area}}</v-chip>
+            <v-chip x-small label class="ma-1">{{user.interestedArea}}</v-chip>
           </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -46,10 +44,11 @@
       title: String,
       body: String,
       user: Object,
+      userID: String,
       questionId: String
     },
     computed: {
-      ...mapState(['majorTags']),
+      ...mapState(['majorTags', 'users']),
     },
     methods: {
       ...mapActions(['goToAnswer']),

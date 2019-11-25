@@ -8,7 +8,8 @@
             :key="n"
             cols="12"
             sm="6">
-            <question-board v-if="n == 1" />
+            <question-board v-if="n == 1" 
+              :questionIdLists="fitArticleList"/>
             <my-board v-else />
           </v-col>
         </v-row>
@@ -29,24 +30,14 @@
         SearchBar: () => import('@/components/SearchBar'),
         QuestionBoard: () => import('@/components/QuestionBoard'),
         MyBoard: () => import('@/components/MyQuestionBoard'),
-        ...mapState(['users', 'user']),
       },
       mounted () {
         this.fetchQuestion();
       },
       data: () => ({
-        my_questions: [
-          {
-            title: "Further CS",
-            body: "I want to achieve SIMWHA jungong, could you help me? and some very long long long long long long long long long long long long lsdfasdf;laskdjf;lkasjdf;lkjas;dlkfj;aslkdjf;lksje;ljf;lij;lijf;sdfs;dlifj;lij;lij;lijij;ijeieifjlsiejf selfijsl eifjlisj feisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijffeisleijf liji"
-          },
-          {
-            title: "Abroad internship",
-            body: "anyone done internship?"
-          }
-        ],
       }),
       computed: {
+        ...mapState(['users', 'user', 'fitArticleList']),
         question_data(n) {
           return n == 0 ? this.questions : this.my_questions
         }

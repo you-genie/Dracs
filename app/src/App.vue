@@ -42,11 +42,12 @@
         let users = {};
         // let count = 0
         snapshot.forEach(doc => {
-          users[doc.id] = doc.data();
+          users[doc.data().userID] = doc.data();
           // count++;
         })
         store.dispatch('usersAppend', users);
       });
+      // store.dispatch('getSearchData', [4, -1, -1, -1, "HCI"])
 
       db.collection('questions').get().then(snapshot => {
         // let count = 1;
@@ -67,6 +68,7 @@
         store.dispatch('myQuestion', myquestions);
         this.isDataGets = true;
       })
+
   },
     methods: {
     },

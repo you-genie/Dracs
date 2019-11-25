@@ -58,15 +58,9 @@
               :value="major" />
           </v-radio-group>
         </v-container>
-        <header>Certificates</header>
+        <!-- <header>Certificates</header> -->
         <v-row class="px-4">
-          <v-checkbox 
-            class="ma-3"
-            v-for="(course, index) in courseNames"
-            v-bind:key="index"
-            v-model="certificates"
-            :label="course"
-            :value="course"/>
+          
         </v-row>
         <header>Interests</header>
         <v-row class="px-4">
@@ -113,15 +107,15 @@ export default {
     menu: false,
     certificates: [],
     interests: [],
-    courses: ["CS101", "CS201", "CS520", "CS489", "CS370", "CS950", "CS333", "CS444", "CS342"],
     query: "",
     major: "CS",
     queries: [],
     total_items: [],
+    majors: {'CS': 0, 'EE':1, 'MAS':2, 'Others':3, 'Undecided': -1}
   }),
   computed: {
-    ...mapGetters(['majorNames', 'courseNames']),
-    ...mapState(['majorTags', 'interestedAreas']),
+    ...mapGetters(['majorNames', 'courseNames', 'longCourseNames']),
+    ...mapState(['majorTags', 'interestedAreas', 'searchResQuestions']),
     academics () {
       var ret = []
         // ret = ret.concat(this.queries)
@@ -146,16 +140,17 @@ export default {
         });
       });
     },
-    ...mapActions(['goToPost']),
+    ...mapActions(['goToPost', 'searchQuestions', 'goToSearch']),
     clickSearch() {
       this.menu = false
       const all_queries = {
-        major: this.major,
-        query: this.queries,
+        major: this.majors[this.major],
+        queries: this.queries,
         certificates: this.certificates,
         interests: this.interests
       }
-      this.$emit('search_click', all_queries)
+      this.searchQuestions(all_queries)
+      console.log(this.searchResQuestions)
     } 
   }
 }

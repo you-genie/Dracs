@@ -18,7 +18,7 @@
             <small> I took these classes: </small>
             <v-chip x-small color="green lighten-3" label class="ma-1"
               v-for="(course, index) in questioner.certificates"
-              :key="index">{{courses[course]}}</v-chip>
+              :key="index">{{courses[course].code}}</v-chip>
           </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
