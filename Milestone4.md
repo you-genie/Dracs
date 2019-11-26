@@ -103,13 +103,13 @@ Designing with async user events. First passing events within parent and child c
 
 ### SangHou
 Which part of the system did you directly contribute to?
- - ..
+ - Firebase db connecting to front-end, hosting setting. Firebase database structure design. Shift local data to firebase db.
 
 What were some of the difficulties you faced?
- - ..
+ - Using vuex library. I had not experienced vueJS before, I mainly did database connection and data fetch to front-end. I studyed how to manage state in vueJS. Some state is not properly fetched and async data fetches makes some critical errors like not fetching subsequent dataset.
  
 List one useful skill you learned while working on the high-fi prototype.
- - ..
+ - VueJS. During high-fi prototype, I have opportunity to study vueJS and vuex. Also I learned how to we use firebase database.
 
 
 ### Jaeryoung
