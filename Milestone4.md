@@ -9,9 +9,7 @@
 
 - We propose DragCS, which provides an opportunity for asking, recommending coursework, and sharing experiences and opinions for the specific personal needs.
 
-- This is unique in that it leverages crowds’ knowledge to offer a better-customized solution, as well as it makes people can meet questions customized with their state and express their opinion with simple drag-drop. 
-  - Compared to OTL, recommendations are more customized (because they are made for one person), seamless (because one makes recommendations for all semesters) and made in a longer-term (i.e., multiple vs. one semester)
-
+- This is unique in that it leverages crowds’ knowledge to offer a better-customized (for the specific person), seamless (each one makes recommendations for all semesters), longer-term solution, as well as it supports people to express their opinion with simple drag-drop. 
 
 
 ## 2. Instruction
