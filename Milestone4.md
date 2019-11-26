@@ -100,8 +100,28 @@ Designing the page. We received comments on 'don't know what to do on answer pag
 Designing with async user events. First passing events within parent and child components, and second dealing with 'drag' related events.
 
 ### SangHou
- - 
+Which part of the system did you directly contribute to?
+ - ..
+
+What were some of the difficulties you faced?
+ - ..
+ 
+List one useful skill you learned while working on the high-fi prototype.
+ - ..
 
 
 ### Jaeryoung
- - 
+Which part of the system did you directly contribute to?
+ - Designed data structures and provided fake datasets to well support the prototype.
+ - Implemented mainly backend: authorization, search API, reputation algorithm, best-fit(similarity) algorithm between user needs. Small design and UI improvements were made in the front-end side.
+ - Designed end-to-end scenarios (user flow) and made a quick tour.
+
+What were some of the difficulties you faced?
+ - Async/await notions were still confusing, even if I have dealt with it many times before.
+ - How to optimize DB quotas for firebase. Since we used a free plan of firebase, we needed to optimize our query attempts so that it takes smallest read/write accesses (in terms of firestore), not in terms of dealing with traditional DB. Fortunately, we did not use even half of the daily quota, but this effort would be important when a lot of users enjoy the service.
+ - Collaborating with a designer. Although interactions about designs were effectively made, I think I have more room to grow if I grind to have more experience on discussing designs with experienced designers.
+ - Conflict with my code and project deadline. I wanted to make a detailed reputation system and wrote code, designed DB structures and so on; but its priority were low and deadline became demanding so I need to delete my work. I realized that it is important to deal with unexpected obstacles and tune schedule accordingly. 
+ 
+List one useful skill you learned while working on the high-fi prototype.
+ - Dealing with firestore. I have used Realtime Database on firebase, but Google made a new alternative (and wants to nudge developers to use this one). It was both similar and somewhat different to Realtime Database; and I learned that it is relatively easy to learn a new one if one has a thorough base knowledge and have prior experience on similar (or old) things. 
+
