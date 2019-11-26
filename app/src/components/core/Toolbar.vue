@@ -56,7 +56,7 @@
       logInAndOut: function () {
         if (firebase.auth().currentUser == null) {
           // move to login page
-          this.$router.replace("login");
+          this.$router.replace("/login");
         } else {
           // log out
           firebase
@@ -65,6 +65,7 @@
             .then(() => {
               store.commit("changeLoginState", false);
               store.commit("updateReputationPts", 0)
+              this.$router.replace("/login");
             });
         }
       }
