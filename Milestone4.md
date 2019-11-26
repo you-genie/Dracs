@@ -1,15 +1,11 @@
 # Milestone 4: High-fi prototype
 > Team Name: Random
 
-> Member: Yujin Chung, Sangho Kim, Jaeryoung Ka
+> Member: 20150691 Yujin Chung, 20150148 Sangho Kim, 20150007 Jaeryoung Ka
 
 ## 1. Project Summary
 
-- Many CS students want to get information on personal coursework, but asking, getting, and sharing diverse experiences (or opinion) is not easy.
-
-- We propose DragCS, which provides an opportunity for asking, recommending coursework, and sharing experiences and opinions for the specific personal needs.
-
-- This is unique in that it leverages crowds’ knowledge to offer a better-customized (for the specific person), seamless (each one makes recommendations for all semesters), longer-term solution, as well as it supports people to express their opinion with simple drag-drop. 
+Many CS students want to get information on personal coursework, but asking, getting, and sharing diverse experiences (or opinion) is not easy. So We propose DragCS, which provides an opportunity for asking, recommending coursework, and sharing experiences and opinions for the specific personal needs. This is unique in that it leverages crowds’ knowledge to offer a better-customized (for the specific person), seamless (each one makes recommendations for all semesters), longer-term solution, as well as it supports people to express their opinion with simple drag-drop. 
 
 
 ## 2. Instruction
