@@ -20,6 +20,8 @@ Welcome to DragCS! In DragCS, you can ask customized coursework for you as well 
 ### Step 1
 Let's look at the main page. You can take a look at questions waiting for you, ask your own question, or search for the existing questions. 
 
+> NOTE: We decided "Questions waiting for you" to show **only** when you are logged in.
+
 First, let's ask a question. Press + buttons on the main page.
 
 ![image 1](https://github.com/krista2811/CS473/blob/master/images/image1.png)
