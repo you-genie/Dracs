@@ -4,7 +4,7 @@
                 <semester-board 
                     v-for="(semester, index) in semesters"
                     v-bind:key="index"
-                    :semester="semester.semester"
+                    :semester="semester.semester+' ('+(asker.currentSemester+index+1)+'학기)'"
                     :semesterId="index"
                     :items="semester.courses"
                     v-on:drag-over-semester="getSemesterDrag"
@@ -45,7 +45,10 @@
             // semesters: Array
         },
         computed: {
-            ...mapState({user: 'user', courseInfos: 'courses'}),
+            ...mapState({user: 'user', courseInfos: 'courses', users: 'users', questions: 'questions'}),
+            asker () {
+                return this.users[this.questions[this.questionId].userID]
+            },
             semesters () {
                 return this.$store.state.questions[this.questionId].semesters
             },
