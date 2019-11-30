@@ -16,12 +16,12 @@
     import {
         mapState
     } from 'vuex'
-    import store from './../store'
+    import store from '@/store'
 
     export default {
         name: "SelectBoard",
         components: {
-            SemesterBoard: () => import('@/components/MySemesterBoard')
+            SemesterBoard: () => import('@/components/boards/MySemesterBoard')
         },
         props: {
             questionId: String

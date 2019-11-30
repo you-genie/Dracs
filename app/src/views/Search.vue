@@ -25,7 +25,7 @@
       },
       components: {
         SearchBar: () => import('@/components/SearchBar'),
-        QuestionBoard: () => import('@/components/QuestionBoard'),
+        QuestionBoard: () => import('@/components/boards/QuestionBoard'),
       },
       data: () => ({
       }),

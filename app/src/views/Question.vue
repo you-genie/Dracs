@@ -16,8 +16,8 @@
           questionId: String
         },
         components: {
-            AnswerBoard: () => import('@/components/SelectBoard'),
-            QuestionCard: () => import('@/components/MyQuestionInfoCard')
+            AnswerBoard: () => import('@/components/boards/SelectBoard'),
+            QuestionCard: () => import('@/components/cards/MyQuestionInfoCard')
         }
     }
 </script>

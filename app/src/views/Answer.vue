@@ -18,8 +18,8 @@
       computed: {
       },
       components: {
-          AnswerBoard: () => import('@/components/DragBoard'),
-          AnswerCard: () => import('@/components/AnswerCard')
+          AnswerBoard: () => import('@/components/boards/DragBoard'),
+          AnswerCard: () => import('@/components/cards/AnswerCard')
       }
     }
 </script>

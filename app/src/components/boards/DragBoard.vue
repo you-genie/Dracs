@@ -30,15 +30,15 @@
     import {
         mapState
     } from 'vuex'
-    import { db } from "../main"
-    import store from '../store'
+    import { db } from "@/main"
+    import store from '@/store'
 
 
     export default {
         name: "DragBoard",
         components: {
             UnselectedChip: () => import('@/components/chips/DragChip'),
-            SemesterBoard: () => import('@/components/SemesterBoard')
+            SemesterBoard: () => import('@/components/boards/SemesterBoard')
         },
         props: {
             questionId: String
