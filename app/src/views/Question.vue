@@ -4,6 +4,8 @@
             :questionId="questionId"/>
         <question-card
             :questionId="questionId" />
+        <comment-slot
+            :questionId="questionId" />
     </div>
 </template>
 
@@ -17,7 +19,8 @@
         },
         components: {
             AnswerBoard: () => import('@/components/boards/SelectBoard'),
-            QuestionCard: () => import('@/components/cards/MyQuestionInfoCard')
+            QuestionCard: () => import('@/components/cards/MyQuestionInfoCard'),
+            CommentSlot: () => import('@/components/comments/MyCommentSlot')
         }
     }
 </script>

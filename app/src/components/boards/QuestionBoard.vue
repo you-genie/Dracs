@@ -20,7 +20,7 @@
   export default {
     name: "QuestionBoard",
     components: {
-      QuestionCard: () => import('@/components/cards/QuestionCard')
+      QuestionCard: () => import('@/components/cards/MainQuestionCard')
     },
     computed: {
         ...mapState(['users', 'user', 'questions']),

@@ -1,6 +1,6 @@
 <template>
     <v-col>
-            <v-row noGutters alignXl>
+            <v-row noGutters>
                 <semester-board 
                     v-for="(semester, index) in semesters"
                     v-bind:key="index"

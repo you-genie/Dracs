@@ -52,7 +52,9 @@
             good_color: "green lighten-1",
             bad_color: "red lighten-1",
             hmm_color: "yellow lighten-1",
-            select_color: "grey"
+            select_color: "grey",
+            menu: false,
+            reset: true
         }),
         computed: {
             ...mapState(['courses', 'user']),

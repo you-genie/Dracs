@@ -38,7 +38,7 @@
   } from 'vuex'
 
   export default {
-    name: "QuestionCard",
+    name: "QuestionInfoCard",
     data: () => ({
 
     }),

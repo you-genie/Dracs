@@ -155,6 +155,12 @@ export default new Vuex.Store({
     setQuestion(state, payload) {
       state.questions = payload
     },
+    setQuestionWithId(state, payload) {
+      state.questions[payload.questionId] = payload.questionInfo
+    },
+    setMyQuestionWithId(state, payload) {
+      state.my_questions[payload.questionId] = payload.questionInfo
+    },
     UPDATE_MY_QUESTION(state, payload) {
       state.my_questions[payload[0]].semesters = payload[1];
       db.collection('questions').doc(payload[0]).update(state.my_questions[payload[0]])
@@ -215,13 +221,18 @@ export default new Vuex.Store({
       state.users = payload;
     },
     setSearchResQuestions(state, payload) {
-      console.log(payload)
       payload.forEach(obj => {
         state.searchResQuestions.push(obj.id)
       })
     }
   },
   actions: {
+    addComment: function(context, payload) {
+      db.collection('questions').doc(payload.questionId).update({
+        comments: payload.comments
+      })
+      context.dispatch('fetchQuestion')
+    },
     addMyQuestion: function (context, payload) {
       // context.state.my_questions[new_key] = (payload.question)
       // context.state.questions[new_key] = (payload.question)
@@ -231,6 +242,18 @@ export default new Vuex.Store({
         context.dispatch('goToHome')
       });
     },
+    fetchQuestionWithId(context, payload) {
+      db.collection('questions').doc(payload.questionId).get().then((doc) => {
+        context.commit('setQuestionWithId', {
+          questionId: payload.questionId, questionInfo: doc.data()})
+      })
+    },
+    fetchMyQuestionWithID(context, payload) {
+      db.collection('questions').doc(payload.questionId).get().then((doc) => {
+        context.commit('setMyQuestionWithId', {
+          questionId: payload.questionId, questionInfo: doc.data()})
+      })
+    },
     fetchQuestion(context) {
       db.collection('questions').get().then(snapshot => {
         // let count = 1;
@@ -239,7 +262,6 @@ export default new Vuex.Store({
         snapshot.forEach(doc => {
           if (doc.data().semesters) {
             let question = doc.data();
-            console.log(doc.data());
             if(question.userID === firebase.auth().currentUser.uid) {
               myquestions[doc.id] = question;
             } else {
