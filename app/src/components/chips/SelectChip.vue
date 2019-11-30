@@ -12,6 +12,7 @@
                 :disabled="selectChip"
                 v-on="vote.on"
                 class="ma-2"
+                :outlined="isMine ? true : false"
                 :color="selectChip? select_color: Object.keys(votes.up).length - Object.keys(votes.down).length >= 0?good_color:bad_color"
             >
                 {{courseData.code}}
