@@ -78,6 +78,7 @@
           <v-btn
             color="success"
             text
+            :loading="loading"
             @click="clickSearch"
           >
             search
@@ -108,6 +109,7 @@ export default {
     certificates: [],
     interests: [],
     query: "",
+    loading: false,
     major: "CS",
     queries: [],
     total_items: [],
@@ -142,7 +144,8 @@ export default {
     },
     ...mapActions(['goToPost', 'searchQuestions', 'goToSearch']),
     clickSearch() {
-      this.menu = false
+      this.loading = true
+      // this.menu = true
       const all_queries = {
         major: this.majors[this.major],
         queries: this.queries,
@@ -151,6 +154,10 @@ export default {
       }
       this.searchQuestions(all_queries)
       console.log(this.searchResQuestions)
+      setTimeout(() => {
+        this.menu = false
+        this.loading = false
+      }, 5000);
     } 
   }
 }

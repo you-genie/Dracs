@@ -1,30 +1,37 @@
 <template>
-    <v-col>
-            <v-row noGutters>
-                <semester-board 
-                    v-for="(semester, index) in semesters"
-                    v-bind:key="index"
-                    :semester="semester.semester+' ('+(asker.currentSemester+index+1)+'학기)'"
-                    :semesterId="index"
-                    :items="semester.courses"
-                    v-on:drag-over-semester="getSemesterDrag"
-                    v-on:drag-leave-semester="leaveSemesterDrag"
-                    v-on:drag-dropped-semester="addSemesterChip"
-                    v-on:deselect-course="deselectChip"
-                    v-on:vote="vote"/>
-            </v-row>
-            <v-row justify="center">
-                <v-subheader>Drag me!</v-subheader>
-                <unselected-chip 
-                    v-for="(course, index) in courses"
-                    v-bind:key="index" class="text-center"
-                    :index="course"
-                    :courseId="index"
-                    v-on:drag-on="getDrag"
-                    v-on:drag-end="leaveSemesterDrag"/>
-            </v-row>
-
-    </v-col>
+  <v-container fluid>
+    <v-row justify="space-around" align="centered" class="ma-1">
+      <semester-board 
+          v-for="(semester, index) in semesters"
+          v-bind:key="index"
+          :semester="semester.semester+' ('+(asker.currentSemester+index+1)+'학기)'"
+          :semesterId="index"
+          :items="semester.courses"
+          v-on:drag-over-semester="getSemesterDrag"
+          v-on:drag-leave-semester="leaveSemesterDrag"
+          v-on:drag-dropped-semester="addSemesterChip"
+          v-on:deselect-course="deselectChip"
+          v-on:vote="vote"/>
+    </v-row>
+    <v-row align="center">
+      <v-card elevation="0" class="pa-3 ma-1">
+        <v-row justify="center">
+          <v-subheader>Drag from Here!</v-subheader>
+        </v-row>
+        <v-card-text>
+          <v-row justify="start" align="start">
+            <unselected-chip 
+              v-for="(course, index) in courses"
+              v-bind:key="index" class="text-center"
+              :index="course"
+              :courseId="index"
+              v-on:drag-on="getDrag"
+              v-on:drag-end="leaveSemesterDrag"></unselected-chip>
+          </v-row>
+        </v-card-text>
+      </v-card>
+    </v-row>
+  </v-container>
 </template>
 <script>
     import {
