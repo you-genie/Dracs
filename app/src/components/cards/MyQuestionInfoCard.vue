@@ -28,6 +28,13 @@
         {{questionInfo.body}}
       </span>
     </v-card-text>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <edit-button
+        :questionId="questionId"
+        :title="questionInfo.title"
+        :body="questionInfo.body" />
+    </v-card-actions>
   </v-card>
 </template>
 
@@ -43,6 +50,9 @@
     }),
     props: {
       questionId: String
+    },
+    components: {
+      EditButton: () => import('@/components/cards/EditMyQuestionInfoCard')
     },
     computed: {
       ...mapState(['majorTags', 'user', 'users', 'courses', 'my_questions']),

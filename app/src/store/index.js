@@ -31,43 +31,7 @@ export default new Vuex.Store({
       interestedAreas: ["None", "CS Theory", "System Network", "Software Engineering", "Social Computing", "Visual Computing", "HCI", "AI"],
       courses: courses.courses,
       user: {},
-      users: {
-          // "2": {
-          //   reputationPts: 10,
-          //   currentSemester: 2,
-          //   major: "-1",
-          //   doubleMajor: "-1",
-          //   minor: "-1",
-          //   coursesTaken: [
-          //     "101,2019,S"
-          //   ],
-          //   interestedArea: "HCI"
-          // },
-          // "3": {
-          //   reputationPts: 109,
-          //   currentSemester: 7,
-          //   major: "0",
-          //   doubleMajor: "2",
-          //   minor: "-1",
-          //   coursesTaken: [
-          //     "101,2015,S", "109,2015,S",
-          //     "210,2016,S", "230,2016,S", "260,2016,F",
-          //     "320,2016,F", "360,2016,F"
-          //   ],
-          //   interestedArea: "Visual Computing"
-          // },
-          // "4": {
-          //   reputationPts: 10,
-          //   currentSemester: 2,
-          //   major: "-1",
-          //   doubleMajor: "-1",
-          //   minor: "-1",
-          //   coursesTaken: [
-          //     "101,2019,S", "109,2019,S"
-          //   ],
-          //   interestedArea: "Social Computing"
-          // }
-      },
+      users: {},
       questions: questions.questions,
       my_questions: {},
       searchResQuestions: []
@@ -227,6 +191,13 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    editQuestion(context, payload) {
+      db.collection('questions').doc(payload.questionId).update({
+        body: payload.body,
+        title: payload.title
+      })
+      context.dispatch('fetchQuestion')
+    },
     addComment: function(context, payload) {
       db.collection('questions').doc(payload.questionId).update({
         comments: payload.comments
@@ -338,7 +309,7 @@ export default new Vuex.Store({
         router.push({ name: 'home' })
     },
     goToSearch(state, payload) {
-      router.push({name: 'search', params: {questionIdLists: payload}})
+      router.push({name: 'search', params: {searchId: payload}})
     },
     goToQuestion(state, payload) {
         router.push({ name: 'question', params: { questionId: payload.questionId } })

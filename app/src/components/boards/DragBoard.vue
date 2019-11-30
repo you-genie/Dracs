@@ -44,6 +44,9 @@
             questionId: String
             // semesters: Array
         },
+        beforeMount() {
+            this.computeCourses();
+        },
         computed: {
             ...mapState({user: 'user', courseInfos: 'courses', users: 'users', questions: 'questions'}),
             asker () {
@@ -51,9 +54,6 @@
             },
             semesters () {
                 return this.$store.state.questions[this.questionId].semesters
-            },
-            courses() {
-                return this.$store.state.questions[this.questionId].courses
             }
         },
         data: () => ({
@@ -64,7 +64,8 @@
             },
             currentId: -1,
             currentSemesterId: -1,
-            onDrag: false
+            onDrag: false,
+            courses: []
         }),
         methods: {
             getDrag: function (courseId) {
@@ -76,6 +77,30 @@
             },
             leaveSemesterDrag: function() {
                 this.currentSemesterId = -1
+            },
+            computeCourses () {
+                var totalCourses = [...Array(this.courseInfos.length).keys()];
+                this.semesters.forEach((semester) => {
+                    semester.courses.forEach((course) => {
+                        if (course.votes.up.hasOwnProperty(this.user.userID)
+                            || course.votes.down.hasOwnProperty(this.user.userID)
+                            || course.votes.hmm.hasOwnProperty(this.user.userID)) {
+                            const idx = totalCourses.indexOf(course.index);
+                            if (idx > -1) {
+                                totalCourses.splice(idx, 1)
+                            }
+                        }
+                    })
+                })
+
+                this.asker.certificates.forEach((courseIndex) => {
+                    const idx = totalCourses.indexOf(courseIndex);
+                    if (idx > -1) {
+                        totalCourses.splice(idx, 1)
+                    }
+                })
+
+                this.courses = totalCourses;
             },
             addSemesterChip: function(semesterId) {
                 if (this.currentId >= 0) {

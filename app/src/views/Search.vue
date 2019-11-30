@@ -20,6 +20,7 @@
   export default {
       name: 'Search',
       props: {
+        searchId: Date
       },
       mounted() {
       },
