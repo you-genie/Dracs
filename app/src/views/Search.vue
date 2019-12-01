@@ -20,12 +20,13 @@
   export default {
       name: 'Search',
       props: {
+        searchId: Date
       },
       mounted() {
       },
       components: {
         SearchBar: () => import('@/components/SearchBar'),
-        QuestionBoard: () => import('@/components/QuestionBoard'),
+        QuestionBoard: () => import('@/components/boards/QuestionBoard'),
       },
       data: () => ({
       }),

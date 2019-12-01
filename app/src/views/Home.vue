@@ -28,8 +28,8 @@
       name: 'Home',
       components: {
         SearchBar: () => import('@/components/SearchBar'),
-        QuestionBoard: () => import('@/components/QuestionBoard'),
-        MyBoard: () => import('@/components/MyQuestionBoard'),
+        QuestionBoard: () => import('@/components/boards/QuestionBoard'),
+        MyBoard: () => import('@/components/boards/MyQuestionBoard'),
       },
       beforeMount() {
         this.fetchAll();

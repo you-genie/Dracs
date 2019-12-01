@@ -9,7 +9,7 @@
       dense>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title><b>{{majorTags[questioner.major]}}</b> dept. student in semester {{questioner.currentSemester}} asked this</v-list-item-title>
+          <v-list-item-title><big><b>{{majorTags[questioner.major]}}{{questioner.minor >= 0 ? " / with minor "+subMajorTags[questioner.minor] : ""}}{{questioner.doubleMajor >= 0 ? " / with double major "+subMajorTags[questioner.doubleMajor] : ""}}</b></big> student in <big><b>semester {{questioner.currentSemester}}</b></big> asked this</v-list-item-title>
           <v-list-item-subtitle>
             <small>I am interested in:  </small>
             <v-chip x-small label class="ma-1">{{questioner.interestedArea}}</v-chip>
@@ -38,7 +38,7 @@
   } from 'vuex'
 
   export default {
-    name: "QuestionCard",
+    name: "QuestionInfoCard",
     data: () => ({
 
     }),
@@ -46,7 +46,7 @@
       questionId: String,
     },
     computed: {
-      ...mapState(['majorTags', 'users', 'questions', 'courses']),
+      ...mapState(['majorTags', 'subMajorTags', 'users', 'questions', 'courses']),
       questionInfo () {
         return this.questions[this.questionId]
       },

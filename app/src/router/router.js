@@ -26,7 +26,7 @@ const router = new Router({
             props: true
         },
         {
-            path: '/search/',
+            path: '/search/:searchId',
             name: 'search',
             component: Search,
             props: true

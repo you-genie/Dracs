@@ -2,7 +2,7 @@
     <v-tooltip bottom>
         <template v-slot:activator="{ on }">
             <v-chip draggable light
-                class="ma-2"
+                class="ma-1 "
                 small
                 :color="nonselect"
                 @dragstart="drag"
