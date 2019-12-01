@@ -340,18 +340,18 @@ export default new Vuex.Store({
             let user = context.state.users[questionerID]
             interests.forEach(interest => {
               if (user.interestedArea == interest) {
-                point += 6
+                point += 22
               }
             })
-            point += Math.abs(currentUser.currentSemester - user.currentSemester) * -1
+           
             point += (currentUser.major == user.major ? 3 : 0) 
-            point += payloadMajor == user.major ? 8 : 0
+            point += payloadMajor == user.major ? 14 : 0
             point += ((currentUser.minor == user.minor) && user.minor != -1 ? 2 : 0)
             point += (payloadMajor == user.minor) && user.minor != -1 ? 3 : 0
             point += ((currentUser.doubleMajor == user.doubleMajor || payloadMajor == user.doubleMajor) && user.doubleMajor != -1 ? 3 : 0) 
             // point += (user.reputationPts > 30 ? 3 : user.reputationPts / 10) 
 
-            point += ((currentUser.interestedArea == user.interestedArea) ? 4 : 0);
+            point += ((currentUser.interestedArea == user.interestedArea) ? 6 : 0);
             resData.push({id: questionId, value: point})
          }
       });
@@ -378,10 +378,10 @@ export default new Vuex.Store({
                 let user = doc.data()
                 if (user.userID != firebase.auth().currentUser.uid) {
                     // push [userID, fitScore] to list userIDandFit
-                  userIDandFit.push([user.userID, Math.pow(Math.abs(currentSemester - user.currentSemester), 1.4) * -1 +
+                  userIDandFit.push([user.userID, 0 +
                       (major == user.major ? 4 : 0) + (minor == user.minor && user.minor != -1 ? 3 : 0) +
                       (doubleMajor == user.doubleMajor && user.doubleMajor != -1 ? 4 : 0) +
-                      (user.reputationPts > 30 ? 3 : user.reputationPts / 10) +
+                      (user.reputationPts > 10 ? 1 : user.reputationPts / 10) +
                       ((interestedArea == user.interestedArea) == true ? 6 : 0)
                   ])
                 }
