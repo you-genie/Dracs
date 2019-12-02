@@ -1,6 +1,6 @@
 <template>
         <v-col>
-            <v-row noGutters alignXl justify="center">
+            <v-row noGutters justify="center">
                 <semester-board 
                     v-for="(semester, index) in semesters"
                     v-bind:key="index"
@@ -16,12 +16,12 @@
     import {
         mapState
     } from 'vuex'
-    import store from './../store'
+    import store from '@/store'
 
     export default {
         name: "SelectBoard",
         components: {
-            SemesterBoard: () => import('@/components/MySemesterBoard')
+            SemesterBoard: () => import('@/components/boards/MySemesterBoard')
         },
         props: {
             questionId: String

@@ -1,16 +1,17 @@
 <template>
     <v-card
-        max-width="33%"
+        outlined
+        max-width="30%"
         class="auto"
         width="70%"
-        height="500"
+        height="600"
     >
         <v-card-title>{{semester}}</v-card-title>
         <v-divider></v-divider>
         <v-card 
             outlined
             class="ma-3"
-            height="30%">
+            height="20%">
             <v-card-text>
                 <small>Selected by User</small>
                 <div v-for="(course, index) in items" v-bind:key="index">
@@ -31,15 +32,16 @@
         <v-card 
             class="ma-3"
             outlined
-            height="40%"
+            height="60%"
             v-bind:color="cardColor"
             v-on:dragover="allowDrop"
             v-on:dragleave.prevent="leaveDrag"
             v-on:drop="drop">
             <v-card-text><span>On Vote - Drop here!</span></v-card-text>
             <v-container>
-                <div v-for="(course, index) in items" v-bind:key="index">
-                    <select-chip 
+                <v-row >
+                    <select-chip
+                    v-for="(course, index) in items" v-bind:key="index" 
                         v-on:deselect="deselect"
                         v-on:vote="vote"
                         v-if="!course.selected"
@@ -48,7 +50,7 @@
                         :selectChip="false"
                         :votes="course.votes"
                         :courseId="index" />
-                </div>
+                </v-row>
             </v-container>
             <v-container>
             </v-container>

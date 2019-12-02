@@ -17,6 +17,12 @@
   export default {
     name: 'App',
     computed: {
+      user() {
+        return store.state.user;
+      }
+    },
+    beforeUpdate() {
+      store.dispatch('fetchAll')
     },
     beforeMount() {
       let questions = {}
@@ -78,6 +84,12 @@
       CoreView: () => import('@/components/core/View')
     },
     watch: {
+      user(newUser) {
+        if (this.user.userID != newUser.userID) {
+          store.dispatch('fetchAll')
+        }
+        // store.dispatch('fetchAll')
+      }
     },
     data () {
       return {
