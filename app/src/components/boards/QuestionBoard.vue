@@ -25,7 +25,7 @@
     computed: {
         ...mapState(['users', 'user', 'questions']),
         questionIds () {
-          return this.questionIdLists.slice(0, 5)
+          return this.questionIdLists.slice(0, 20)
         },
         questionInfos() {
           let infos = {}

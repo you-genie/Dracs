@@ -89,6 +89,9 @@ export default new Vuex.Store({
               })
       }
     },
+    setFitlist(state, payload) {
+      state.fitArticleList = payload.questions
+    },
     increaseReputationPts(state, payload) {
         state.myReputationPts += payload
 
@@ -395,6 +398,19 @@ export default new Vuex.Store({
         })
 
     },
+    getDefaultFitlist(context, payload) {
+      db.collection('questions').get().then(snapshot => {
+        let questions = [];
+        // let count = 1;
+        snapshot.forEach(doc => {
+          if (doc.data().semesters) {
+            let question = doc.data();
+            questions.push(doc.id)
+          }
+        });
+        context.commit('setFitlist', {questions: questions})
+      })
+    }
   },
   modules: {}
 })
