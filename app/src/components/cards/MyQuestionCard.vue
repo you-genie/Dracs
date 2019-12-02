@@ -1,6 +1,7 @@
 <template>
   <v-card 
-    outlined 
+    outlined
+    :disabled="!loggedIn"
     @click='route'
     class="ma-3">
     <v-list three-lines
@@ -24,6 +25,8 @@
     mapState, mapActions 
     // mapGetters
   } from 'vuex'
+  import * as firebase from 'firebase'
+
   export default {
     name: "QuestionCard",
     data: () => ({
@@ -35,7 +38,10 @@
       questionId: String
     },
     computed: {
-      ...mapState(['majorTags'])
+      ...mapState(['majorTags']),
+      loggedIn() {
+        return firebase.auth().currentUser
+      }
     },
     methods: {
       ...mapActions(['goToQuestion']),

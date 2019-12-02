@@ -13,8 +13,8 @@
           v-on:deselect-course="deselectChip"
           v-on:vote="vote"/>
     </v-row>
-    <v-row align="center">
-      <v-card elevation="0" class="pa-3 ma-1">
+    <v-row align="center" >
+      <v-card elevation="0" class="pa-3 ma-1" v-if="loggedIn">
         <v-row justify="center">
           <v-subheader>Drag from Here!</v-subheader>
         </v-row>
@@ -39,6 +39,7 @@
     } from 'vuex'
     import { db } from "@/main"
     import store from '@/store'
+    import * as firebase from 'firebase';
 
 
     export default {
@@ -61,6 +62,9 @@
             },
             semesters () {
                 return this.$store.state.questions[this.questionId].semesters
+            },
+            loggedIn() {
+              return firebase.auth().currentUser
             }
         },
         data: () => ({

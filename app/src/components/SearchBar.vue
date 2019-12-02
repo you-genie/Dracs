@@ -34,6 +34,7 @@
               absolute
               dark
               fab
+              v-if="loggedIn"
               right
               @click="goToPost"
               color="primary"
@@ -99,6 +100,8 @@ import {
   mapActions, mapState, mapGetters
 } from 'vuex'
 
+import * as firebase from 'firebase'
+
 export default {
   name: 'SearchBar',
   components: {
@@ -131,6 +134,9 @@ export default {
     all_queries () {
       var ret = this.academics
       return ret.concat(this.queries)
+    },
+    loggedIn() {
+      return firebase.auth().currentUser
     }
   },
   methods: {

@@ -4,7 +4,7 @@
         :questionId="questionId" />
       <answer-board 
         :questionId="questionId"/>
-      <comment-slot 
+      <comment-slot v-if="loggedIn"
         :questionId="questionId" />
     </div>
 </template>
@@ -13,6 +13,7 @@
 // this is page for answer.
 // import banner, answer-card, answer-board component. Fill in banner plz.
   import { mapState, mapActions } from 'vuex'
+  import * as firebase from 'firebase';
   export default {
       name: 'Answer',
       props: {
@@ -22,6 +23,9 @@
         ...mapState(['questions']),
         questionInfo() {
           return this.questions[this.questionId]
+        },
+        loggedIn() {
+          return firebase.auth().currentUser
         }
       },
       components: {

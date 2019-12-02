@@ -21,7 +21,7 @@
         </template>
         <v-card
             max-width="300">
-            <vote-list v-if="!isMine"
+            <vote-list v-if="!isMine && loggedIn"
                 v-on:send-vote="sendVote"
                 v-on:reset="reset"
                 :default-up="Object.keys(votes.up).length"
@@ -46,6 +46,7 @@
     import {
         mapState
     } from 'vuex'
+    import * as firebase from 'firebase'
 
     export default {
         name: "YourSelectChip",
@@ -67,6 +68,9 @@
                 const isDown = Object.keys(this.votes.down).length == 0
                 const isHmm = Object.keys(this.votes.hmm).length == 0
                 return isUp && isDown && isHmm
+            },
+            loggedIn() {
+                return firebase.auth().currentUser
             }
         },
         components: {

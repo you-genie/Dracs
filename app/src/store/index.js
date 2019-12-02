@@ -141,8 +141,8 @@ export default new Vuex.Store({
       state.my_questions = payload;
       /* add local test data */
       state.my_questions["9999"] = {
-        title: "LOCAL ONLY",
-          body: "This is local data! it is not apply to database",
+        title: "Sign In to use full DraCS!",
+          body: "You can post questions, recommend courses and make comments! click the front right button to sign in and sign up!",
           semesters: [
           { semester: "2020 Spring", courses: [{
               index: 0,
@@ -177,6 +177,56 @@ export default new Vuex.Store({
                 }
               }
             ] },
+          { semester: "2021 Spring", courses: []}
+        ],
+      }
+
+      state.my_questions["9998"] = {
+        title: "이 모든 멋진 기능을 로그인해서 확인하세요!!!",
+          body: "댓글 달기, 과목 추천하기, 내 질문 확인 및 질문 올리기 기능을 사용하고 싶으시다면?? 상단 우측 로그인 ㄱㄱ!",
+          semesters: [
+          { semester: "2020 Spring", courses: [{
+              index: 0,
+              selected: false,
+              myChip: false,
+              votes: {
+                up: 3,
+                down: 1,
+                hmm: 0
+              }
+            }]
+          },
+          { semester: "2020 Fall", courses:[
+              {
+                index: 3,
+                selected: false,
+                myChip: false,
+                votes: {
+                  up: 2,
+                  down: 1,
+                  hmm: 0
+                }
+              },
+              {
+                index: 21,
+                selected: false,
+                myChip: false,
+                votes: {
+                  up: 3,
+                  down: 1,
+                  hmm: 0
+                }
+              }
+            ] },
+          { semester: "2021 Spring", courses: []}
+        ],
+      }
+      state.my_questions["10000"] = {
+        title: "We're waiting for you~~~",
+          body: "기다리고 있어요~~~",
+          semesters: [
+          { semester: "2020 Spring", courses: []},
+          { semester: "2020 Fall", courses:[] },
           { semester: "2021 Spring", courses: []}
         ],
       }
