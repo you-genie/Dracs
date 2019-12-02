@@ -373,6 +373,10 @@ export default new Vuex.Store({
     searchQuestions (context, payload) {
       //calculate for both user and other payloads]
       var resData = [];
+      db.collection('query').add({
+        query: payload,
+        user: context.state.user
+      })
       Object.keys(context.state.questions).forEach(questionId => {
           let question = context.state.questions[questionId]
           let point = 0
