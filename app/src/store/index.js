@@ -331,16 +331,16 @@ export default new Vuex.Store({
           if (currentUser.userID != questionerID) {
             payload.queries.forEach(query => {
               if (question.title.includes(query)) {
-                point += 10
+                point += 20
               }
               if (question.body.includes(query)) {
-                point += 12
+                point += 15
               }
             })
             let user = context.state.users[questionerID]
             interests.forEach(interest => {
               if (user.interestedArea == interest) {
-                point += 22
+                point += 4
               }
             })
            
@@ -351,7 +351,7 @@ export default new Vuex.Store({
             point += ((currentUser.doubleMajor == user.doubleMajor || payloadMajor == user.doubleMajor) && user.doubleMajor != -1 ? 3 : 0) 
             // point += (user.reputationPts > 30 ? 3 : user.reputationPts / 10) 
 
-            point += ((currentUser.interestedArea == user.interestedArea) ? 6 : 0);
+            point += ((currentUser.interestedArea == user.interestedArea) ? 12 : 0);
             resData.push({id: questionId, value: point})
          }
       });
