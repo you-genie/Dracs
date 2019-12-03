@@ -118,7 +118,7 @@
                     const itemId = this.courses[this.currentId]
                     var index = this.semesters[semesterId].courses.findIndex(x => x.index === itemId);
                     if (index >= 0) {
-                        this.semesters[semesterId].courses[index].votes.up += 1
+                        this.semesters[semesterId].courses[index].votes.up[this.user.userID] = 1
                         this.semesters[semesterId].courses[index].myChip = true
                     } else {
                         const userID = this.user.userID
